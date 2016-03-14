@@ -8,7 +8,7 @@ sys.setdefaultencoding('utf-8')
 
 @menu.route('/article_records', methods=['POST', 'GET'])
 @authorize
-def article_records_view():
+def article_records():
     # 记录文章
     if request.method == 'GET':
         sql = 'SELECT users.username, post_info.post_title, post_info.post_address, post_info.post_date, post_info.id' \
@@ -37,4 +37,4 @@ def article_records_view():
     else:
         flash(u'标题或发帖地址为空!')
 
-    return redirect(url_for('article_records_view'))
+    return redirect(url_for('article_records'))

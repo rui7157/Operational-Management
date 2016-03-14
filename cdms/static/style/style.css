@@ -15,6 +15,7 @@ body, input, select, button, textarea {
 
 body { /*background-color:#f5f5f5;*/
     background: url(../images/1.jpg) top center no-repeat;
+	background-attachment:fixed;
 }
 
 input, select, button, textarea {
@@ -328,7 +329,7 @@ a, area, button {
     line-height: 40px;
     height: 40px;
     position:fixed;
-	position:absolute;
+	/*position:relative;*/
     bottom: 0px;
     width: 100%;
 }

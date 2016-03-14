@@ -13,7 +13,7 @@ lock = Lock()
 
 @menu.route('/register_web_info', methods=['POST', 'GET'])
 @authorize
-def register_web_info_view():
+def register_web_info():
     # 注册网站信息
     if request.method == 'GET':
         sql = """ SELECT users.username, users.password, periphery_entend.register_website,
@@ -64,11 +64,11 @@ def register_web_info_view():
                 g.db.commit()
     lock.release()
 
-    return redirect(url_for("menu.register_web_info_view"))
+    return redirect(url_for("menu.register_web_info"))
 
 
 @menu.route('/register_web_info_delete')
-def register_web_info_delete_view():
+def register_web_info_delete():
     # 简单验证, 验证通过更据 id 直接删除
     if str(hash(str(request.args.get('id')))) == str(request.args.get('key')):
         sql = 'delete from periphery_entend_data where id=%s;' % int(request.args.get('id'))
@@ -77,10 +77,10 @@ def register_web_info_delete_view():
             if g.db.cursor.execute(sql):
                 flash(u'删除成功!')
                 g.db.commit()
-                return redirect(url_for('menu.register_web_info_view'))
+                return redirect(url_for('menu.register_web_info'))
     g.db.commit()
     flash(u'删除失败！请刷新页面再试！')
-    return redirect(url_for('menu.register_web_info_view'))
+    return redirect(url_for('menu.register_web_info'))
 
 
 @menu.route("/register_web_info_set", methods=["POST"])
@@ -96,4 +96,4 @@ def register_web_info_set():
         set_post_result = 1
     else:
         set_post_result = 0
-    return redirect(url_for('menu.register_web_info_view', set_post_result=set_post_result))
+    return redirect(url_for('menu.register_web_info', set_post_result=set_post_result))

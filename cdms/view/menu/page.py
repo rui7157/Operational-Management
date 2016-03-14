@@ -12,7 +12,7 @@ except Exception:
 
 @menu.route('/page')
 @authorize
-def page_view():
+def page():
     """
     第一次取出一共有多少mysql数据
     更据Mysql取出来的数据 来分页

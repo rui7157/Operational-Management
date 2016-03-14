@@ -19,18 +19,18 @@
             <ul>
 {#                 需要权限的导航#}
                 <li><a href="{{ url_for('menu.index') }}">首页</a></li>
-                <li><a href="{{ url_for('menu.article_records_view') }}">记录文章</a></li>
-                <li><a href="{{ url_for('menu.register_web_info_view') }}">网站注册信息</a></li>
+                <li><a href="{{ url_for('menu.article_records') }}">记录文章</a></li>
+                <li><a href="{{ url_for('menu.register_web_info') }}">网站注册信息</a></li>
 
 {#                 通用导航#}
-                <li><a href="{{ url_for('menu.mail_view') }}">邮件管理</a></li>
+                <li><a href="{{ url_for('menu.mail') }}">邮件管理</a></li>
                 <li><a href="{{ url_for('tool.tools') }}">工具</a></li>
-                {% if session.exa_user == 1 %}
-                    <li><a href="{{ url_for('menu.post_count_view') }}">文章管理</a></li>
+                {% if session.exa_user >= 1 %}
+                    <li><a href="{{ url_for('menu.post_count') }}">文章管理</a></li>
                 {% endif %}
 {#                 登录导航#}
                 {% if not session.username %}
-                    <li class="on"><a href="{{ url_for('menu.login_view') }}">登录</a></li>
+                    <li class="on"><a href="{{ url_for('menu.login') }}">登录</a></li>
                 {% else %}
                     <li class="on"><a href="{{ url_for('menu.logout') }}">退出</a></li>
                 {% endif %}

@@ -9,7 +9,7 @@
 
 {%- block content %}
 <div class="box">
-    <form action="{{ url_for('menu.mail_view') }}" method="POST">
+    <form action="{{ url_for('menu.mail') }}" method="POST">
     <table  border="0" cellspacing="0" cellpadding="0" width="100%"  class="topTab">
         <tr>
             <th width="40%">邮箱</th>
@@ -37,7 +37,7 @@
                 <td>{{ entry.username }}</td>
                 <td>{{ entry.password }}</td>
                 <td>{{ entry.date }}</td>
-                <td><a href="{{ url_for('menu.mail_delete_view', key=entry.key,id=entry.id ) }}" class="btn">删除</a></td>
+                <td><a href="{{ url_for('menu.mail_delete', key=entry.key,id=entry.id ) }}" class="btn">删除</a></td>
             </tr>
         {% else %}
             <tr><td colspan="3">没有数据</td></tr>

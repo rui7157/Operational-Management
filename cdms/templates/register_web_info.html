@@ -9,7 +9,7 @@
 
 {%- block content %}
     <div class="box">
-        <form action="{{ url_for('menu.register_web_info_view') }}" method="POST">
+        <form action="{{ url_for('menu.register_web_info') }}" method="POST">
             <table border="0" cellspacing="0" cellpadding="0" width="100%" class="topTab web">
                 <tr>
                     <th width="">网站</th>
@@ -49,7 +49,7 @@
                         <td class="modify-btn">{{ entry.mail_password }}</td>
                         <td class="modify-btn">{{ entry.data_date }}</td>
                         <td>
-                            <a href="{{ url_for('menu.register_web_info_delete_view', key=entry.key,id=entry.id,
+                            <a href="{{ url_for('menu.register_web_info_delete', key=entry.key,id=entry.id,
                             periphery_entend_id=entry.periphery_entend_id) }}" class="btn">删除</a>
                             <a style="display:none;cursor:pointer;" class="btn post-btn" id="post_btn"
                                name="{{ entry.periphery_entend_id }}">保存</a>

@@ -7,7 +7,7 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 @menu.route('/login', methods=['POST', 'GET'])
-def login_view():
+def login():
     # 登陆
     if request.method == 'GET':
         return render_template('login.html')
@@ -19,7 +19,7 @@ def login_view():
         session.pop('group')
         session.pop('exa_user')
         session.pop('username')
-        return redirect(url_for('login_view'))
+        return redirect(url_for('menu.login'))
 
     if g.db.cursor.execute("SELECT password,id FROM users WHERE username=%s", ((request.form['username']),)):
         # 查询数据库 用户名 返回1 判断密码
@@ -37,7 +37,7 @@ def login_view():
             session['user_name_id'] = sql_data[0][4]
             session['group'] = sql_data[0][5]
             session['exa_user'] = sql_data[0][6]
-            return redirect(url_for('index_view'))
+            return redirect(url_for('menu.index'))
     flash(u'你输入的帐号或密码不正确!')
     return render_template('login.html')
 
@@ -47,4 +47,4 @@ def login_view():
 def logout():
     if 'username' in session.keys():
         session.pop('username')
-        return redirect(url_for('menu.login_view'))
+        return redirect(url_for('menu.login'))

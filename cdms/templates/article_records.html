@@ -9,7 +9,7 @@
 
 {%- block content %}
 <div class="box">
-    <form action="{{ url_for('menu.article_records_view') }}" method="POST">
+    <form action="{{ url_for('menu.article_records') }}" method="POST">
     <table  border="0" cellspacing="0" cellpadding="0" width="100%" class="topTab">
         <tr>
             <th width="40%">帖子标题</th>
@@ -38,7 +38,7 @@
                 <td>{{ entry.url }}</td>
                 <td>{{ entry.name }}</td>
                 <td>{{ entry.date }}</td>
-                <td><a href="{{ url_for('menu.delete_post_view', key=entry.key,id=entry.id) }}" class="btn">删除</a></td>
+                <td><a href="{{ url_for('menu.delete_post', key=entry.key,id=entry.id) }}" class="btn">删除</a></td>
             </tr>
         {% else %}
             <tr><td colspan="3">没有数据</td></tr>

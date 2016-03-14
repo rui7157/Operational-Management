@@ -8,7 +8,7 @@ sys.setdefaultencoding('utf-8')
 from ..wrapper import post_count_data
 
 @menu.route('/post_count', methods=['POST', 'GET'])
-def post_count_view():
+def post_count():
     if request.method == 'GET':
         entries = post_count_data(session['exa_user'], session['group'])
 
@@ -56,18 +56,18 @@ def exa_post():
             return "fail"
         else:
             return "success"
-    return redirect(url_for("menu.index_view"))
+    return redirect(url_for("menu.index"))
 
 
 @menu.route('/deletepost', methods=['GET'])
 @authorize
-def delete_post_view():
+def delete_post():
     # 简单验证, 验证通过更据 id 直接删除
     if str(hash(str(request.args.get('id')))) == str(request.args.get('key')):
         sql = 'delete from post_info where id=%s;' % int(request.args.get('id'))
         if g.db.cursor.execute(sql):
             flash(u'删除成功!')
             g.db.commit()
-            return redirect(url_for('menu.article_records_view'))
+            return redirect(url_for('menu.article_records'))
     flash(u'删除失败！请刷新页面再试！')
-    return redirect(url_for('menu.article_records_view'))
+    return redirect(url_for('menu.article_records'))

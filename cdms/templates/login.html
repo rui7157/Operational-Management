@@ -22,7 +22,7 @@ $(document).ready(function() {
 </div>
 
 <div class="login">
-    <form action="{{ url_for('menu.login_view') }}" method="POST">
+    <form action="{{ url_for('menu.login') }}" method="POST">
     	<ul>
         	<li><span>用户名:</span><input type="text" name="username" value="{{ session['username'] }}"></li>
         	<li><span>密　码:</span><input type="password" name="password"></li>
