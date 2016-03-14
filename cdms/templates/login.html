@@ -33,9 +33,6 @@ $(document).ready(function() {
                 <button type="submit" >退出</button> 
             {% endif %}</li>
         </ul>
-        {% for message in get_flashed_messages() %}
-           <script> alert('{{ message }}');</script>
-        {% endfor %}
     </form>
 </div>
 {% endblock %}

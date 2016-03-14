@@ -50,7 +50,9 @@
 
 {% block content %}
 {% endblock %}
-
+{% for message in get_flashed_messages() %}
+    <script> alert('{{ message }}');</script>
+{% endfor %}
 {% block foot %}
     <div class="foot">
         成都美世在线管理系统-品牌部 
