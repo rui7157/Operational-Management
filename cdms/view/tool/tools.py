@@ -1,9 +1,6 @@
-# coding: utf-8
+# -*- coding: utf-8 -*-
 from . import tool
-from flask import request, url_for, redirect,render_template
-import sys
-reload(sys)
-sys.setdefaultencoding('utf-8')
+from flask import render_template
 
 
 @tool.route("/tools")

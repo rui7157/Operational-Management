@@ -1,10 +1,7 @@
-#coding:u8
+# -*- coding:utf-8 -*-
 from . import menu
 from ..wrapper import authorize
-from flask import  flash, request, url_for, render_template, g, redirect, session
-import sys
-reload(sys)
-sys.setdefaultencoding('utf-8')
+from flask import flash, request, url_for, render_template, g, redirect, session
 
 @menu.route('/article_records', methods=['POST', 'GET'])
 @authorize

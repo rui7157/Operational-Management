@@ -1,14 +1,13 @@
-# coding: utf-8
+# -*- coding: utf-8 -*-
 from . import tool
-from flask import request, url_for, redirect,render_template
-import sys
-reload(sys)
-sys.setdefaultencoding('utf-8')
+from flask import request, url_for, redirect, render_template
 
 
 @tool.route("/tool/query", methods=["GET"])
 def query():
     return render_template("tool/query.html")
+
+
 @tool.route("/tool/query_request", methods=["POST"])
 def query_request():
     def user_input_format(text):

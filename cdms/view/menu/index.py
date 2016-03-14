@@ -1,7 +1,7 @@
 # coding: utf-8
 from . import menu
 from ..wrapper import authorize
-from flask import render_template, url_for
+from flask import render_template
 
 
 @menu.route('/', methods=['GET', 'POST'])

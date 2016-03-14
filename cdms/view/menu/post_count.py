@@ -1,9 +1,6 @@
-# coding: utf-8
+# -*- coding: utf-8 -*-
 from . import menu,authorize
 from flask import request, render_template, g, redirect,url_for,session,flash
-import sys
-reload(sys)
-sys.setdefaultencoding('utf-8')
 
 from ..wrapper import post_count_data
 

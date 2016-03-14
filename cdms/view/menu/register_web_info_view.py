@@ -1,13 +1,9 @@
-# coding: utf-8
+# -*- coding: utf-8 -*-
 from . import menu
 from ..wrapper import authorize
 from flask import flash, request, url_for, render_template, g, redirect, session
 from threading import Lock
 
-import sys
-
-reload(sys)
-sys.setdefaultencoding('utf-8')
 lock = Lock()
 
 

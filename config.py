@@ -1,6 +1,4 @@
-# -*- coding: utf-8
-
-
+# -*- coding: utf-8 -*-
 
 class MainConfig(object):
     SECRET_KEY = "c61f1f9e762e16831f676528b89b31d"
