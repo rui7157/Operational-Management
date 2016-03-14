@@ -25,7 +25,7 @@
 {#                 通用导航#}
                 <li><a href="{{ url_for('menu.mail') }}">邮件管理</a></li>
                 <li><a href="{{ url_for('tool.tools') }}">工具</a></li>
-                {% if session.exa_user >= 1 %}
+                {% if session.get('exa_user') >= 1 %}
                     <li><a href="{{ url_for('menu.post_count') }}">文章管理</a></li>
                 {% endif %}
 {#                 登录导航#}
@@ -35,7 +35,6 @@
                     <li class="on"><a href="{{ url_for('menu.logout') }}">退出</a></li>
                 {% endif %}
                 {%- if session.username %}
-
             </ul>
         </div>
 		<div class="user">

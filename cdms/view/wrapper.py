@@ -25,7 +25,7 @@ def authorize(fn):
             # 验证cookie 是否存在 存在函数退出
             return fn()
         flash(u'请先登录!')
-        return redirect(url_for('menu.login_view'))
+        return redirect(url_for('menu.login'))
 
     return wrapper
 
