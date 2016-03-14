@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% import 'forms.html' as forms %}
+{% block title %}记录文章{% endblock %}
+
+{# 导航条 #}
+{% block menu %}{{ super() }}{% endblock %}
+
+{# 打印提示信息 #}
+
+{%- block content %}
+<div class="box">
+    <form action="{{ url_for('menu.article_records_view') }}" method="POST">
+    <table  border="0" cellspacing="0" cellpadding="0" width="100%" class="topTab">
+        <tr>
+            <th width="40%">帖子标题</th>
+            <th width="40%">帖子地址</th>
+            <th width="20%">操作</th>
+        </tr>
+
+        <tr>
+            <td align="center">{{ forms.input(name="title", class="intTitle") }}</td>
+            <td align="center">{{ forms.input(name="url", class="intUrl") }}</td>
+            <td align="center"><button name="" type="submit" class="btn" value="添加" >添加</button></td>
+        </tr>
+
+    </table>
+    <table width="100%" border="0"  id="oTable">
+    		<tr>
+                <th width="30%">帖子标题</th>
+                <th width="30%">帖子地址</th>
+                <th width="10%">姓名</th>
+                <th width="20%">时间</th>
+                <th width="10%">操作</th>
+      	    </tr>
+        {% for entry in entries %}
+            <tr>
+                <td>{{ entry.title }}</td>
+                <td>{{ entry.url }}</td>
+                <td>{{ entry.name }}</td>
+                <td>{{ entry.date }}</td>
+                <td><a href="{{ url_for('menu.delete_post_view', key=entry.key,id=entry.id) }}" class="btn">删除</a></td>
+            </tr>
+        {% else %}
+            <tr><td colspan="3">没有数据</td></tr>
+        {% endfor %}
+        </table>
+    </form>
+</div>
+    {% for message in get_flashed_messages() %}
+        <script> alert('{{ message }}');</script>
+    {% endfor %}
+{% endblock -%}

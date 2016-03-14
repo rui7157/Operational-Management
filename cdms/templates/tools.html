@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% import 'forms.html' as forms %}
+{% block title %}工具{% endblock %}
+
+{# 导航条 #}
+{% block menu %}{{ super() }}{% endblock %}
+
+{# 打印提示信息 #}
+
+{%- block content %}
+<div class="box">
+    <p><a href="{{url_for('tool.query')}}" class="btn">点击查询 </a></p>
+</div>
+
+    {% for message in get_flashed_messages() %}
+        <script> alert('{{ message }}');</script>
+    {% endfor %}
+{% endblock -%}

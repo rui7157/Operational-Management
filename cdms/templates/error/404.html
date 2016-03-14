@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}页面去火星了！ 0.0{% endblock %}
+
+{% block menu %}
+{{ super() }}
+{% endblock %}
+
+
+{% block content %}
+    {{ super() }}
+<div class="box">
+        <p style="font-size: 500%;font-weight: bold;text-align:center;">纳尼！？错误404</p>
+        <p><span style="font-size: 400%;">WHIT !?</span><span style="font-size: 900%;">啥！？</span><img src="{{ url_for('static', filename='images/nani.jpg' ) }}"/></p>
+        <p style="font-size: 300%;text-align:center;">页面竟然找不到了！</p>
+    </div>
+{% endblock %}

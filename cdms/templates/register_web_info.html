@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% import 'forms.html' as forms %}
+{% block title %}网站注册信息{% endblock %}
+
+{# 导航条 #}
+{% block menu %}{{ super() }}{% endblock %}
+
+{# 打印提示信息 #}
+
+{%- block content %}
+    <div class="box">
+        <form action="{{ url_for('menu.register_web_info_view') }}" method="POST">
+            <table border="0" cellspacing="0" cellpadding="0" width="100%" class="topTab web">
+                <tr>
+                    <th width="">网站</th>
+                    <th width="">用户名</th>
+                    <th width="">密码</th>
+                    <th width="">邮箱</th>
+                    <th width="">操作</th>
+                </tr>
+
+                <tr>
+                    <td align="center">{{ forms.input(name="web_site", class="intTitle") }}</td>
+                    <td align="center">{{ forms.input(name="username", class="intUrl") }}</td>
+                    <td align="center">{{ forms.input(name="password", class="intUrl") }}</td>
+                    <td align="center">{{ forms.input(name="mail", class="intUrl") }}</td>
+                    <td align="center">
+                        <button name="" type="submit" class="btn" value="添加">添加</button>
+                    </td>
+                </tr>
+
+            </table>
+            <table width="100%" border="0" id="oTable">
+                <tr>
+                    <th>网站地址</th>
+                    <th>网站用户名</th>
+                    <th>网站登录密码</th>
+                    <th>网站邮箱</th>
+                    <th>邮箱密码</th>
+                    <th>时间</th>
+                    <th>操作</th>
+                </tr>
+                {% for entry in entries %}
+                    <tr>
+                        <td class="modify-btn">{{ entry.register_website }}</td>
+                        <td class="modify-btn">{{ entry.register_website_username }}</td>
+                        <td class="modify-btn">{{ entry.register_website_password }}</td>
+                        <td class="modify-btn">{{ entry.mail_username }}</td>
+                        <td class="modify-btn">{{ entry.mail_password }}</td>
+                        <td class="modify-btn">{{ entry.data_date }}</td>
+                        <td>
+                            <a href="{{ url_for('menu.register_web_info_delete_view', key=entry.key,id=entry.id,
+                            periphery_entend_id=entry.periphery_entend_id) }}" class="btn">删除</a>
+                            <a style="display:none;cursor:pointer;" class="btn post-btn" id="post_btn"
+                               name="{{ entry.periphery_entend_id }}">保存</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="3">没有数据</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </form>
+    </div>
+
+    {% for message in get_flashed_messages() %}
+        <script> alert('{{ message }}');</script>
+    {% endfor %}
+{% endblock -%}

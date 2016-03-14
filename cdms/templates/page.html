@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='style/style.css') }}" media="all"/>
+    <style>
+        body {
+            background: none;
+            background-color: #fff;
+        }
+
+    </style>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-1.8.3.min.js' ) }}"></script>
+    <script>
+        $(function () {
+            // 审核/取消审核时候写入数据库
+            var exa_btn = $('a[exa=exa]');
+
+            function modify_btn(btn) {
+                if (btn.hasClass("exa-btn")) {
+                    btn.text("审核");
+                    btn.removeClass("exa-btn").addClass("no-btn");
+                    $(btn.parent().children()[0]).text("未审核");
+                    $(btn.parent().children()[0]).attr("class", "a-nexa");
+                } else {
+                    btn.text("取消");
+                    btn.removeClass("no-btn").addClass("exa-btn");
+                    $(btn.parent().children()[0]).text("已审核");
+                    $(btn.parent().children()[0]).attr("class", "a-exa");
+                }
+            }
+
+            exa_btn.click(function () {
+                if ($(this).hasClass("no-btn")) {
+                    var operation = "ok";
+                } else {
+                    var operation = "cancel"
+                }
+                var e_btn = $(this);
+                var post_id = $(this).attr("name");
+                $.post("/exa_post", {
+                    "post_id": post_id,
+                    "is_exa": operation
+                }, function (data) {
+                    if (data == "success") {
+                        modify_btn(e_btn);
+                        alert("提交成功！");
+                    } else {
+                        alert("提交失败！")
+                    }
+                });
+            })
+        })
+    </script>
+</head>
+<body>
+
+<div class="box">
+    <table width="98%" border="0" id="oTable">
+        <tr>
+            <th width="25%">帖子标题</th>
+            <th width="35%">帖子地址</th>
+            <th width="10%">姓名</th>
+            <th width="15%">时间</th>
+            <th width="15%">审核</th>
+        </tr>
+        {%- for entry in entries %}
+            <tr>
+                <td>{{ entry.title }}</td>
+                <td>{{ entry.url }}</td>
+                <td>{{ entry.name }}</td>
+                <td>{{ entry.date }}</td>
+
+
+                {%- if entry.is_exa_post == 1 %}
+                    {% if is_exa_user >= 1 %}
+                        <td><span class="a-exa">已审核</span> <a style="cursor:pointer;" exa="exa" class="btn exa-btn"
+                                                              name="{{ entry.id }}">取消</a>
+                        </td>
+                    {% else %}
+                        <td><a>已审核</a></td>
+                    {% endif %}
+                {% else %}
+                    {% if is_exa_user >= 1 %}
+                        <td><span class="a-nexa">未审核</span> <a style="cursor:pointer;" exa="exa" class="btn no-btn"
+                                                               name="{{ entry.id }}">审核</a></td>
+                    {% else %}
+                        <td>未审核</td>
+                    {% endif %}
+                {% endif -%}
+            </tr>
+        {% else -%}
+            <tr>
+                <td colspan="3">没有数据</td>
+            </tr>
+        {% endfor %}
+    </table>
+    <div class="page">
+        <ul>
+            <li><a href="{{ url_for('menu.page_view', page=1,y=date_y,m=date_m,d=date_d,user_post_id=user_post_id) }}">首页</a></li>
+            {% if current_page > 1 %}
+                <li><a href="{{ url_for('menu.page_view', page=upper_page,y=date_y,m=date_m,d=date_d,user_post_id=user_post_id) }}">上一页</a></li>
+            {% endif %}
+
+            {%- for x in number %}
+
+                {% if x == current_page %}
+                    <li class="thisclass"><a href="{{ url_for('menu.page_view', page=x,y=date_y,m=date_m,d=date_d,user_post_id=user_post_id) }}">{{ x }}</a></li>
+                {% else %}
+                    <li><a href="{{ url_for('menu.page_view', page=x,y=date_y,m=date_m,d=date_d,user_post_id=user_post_id) }}">{{ x }}</a></li>
+                {% endif %}
+
+            {% endfor -%}
+
+            {% if current_page >= 1 and current_page < max_list %}
+                <li><a href="{{ url_for('menu.page_view', page=next_page,y=date_y,m=date_m,d=date_d,user_post_id=user_post_id) }}">下一页</a></li>
+            {% endif %}
+            <li><a href="{{ url_for('menu.page_view', page=max_list,y=date_y,m=date_m,d=date_d,user_post_id=user_post_id) }}">尾页</a></li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>
+

@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}登录{% endblock %}
+
+{% block menu %}{{ super() }}{% endblock %}
+
+{% block content %}
+<script type="text/javascript" src={{url_for('static', filename='js/jquery.bcat.bgswitcher.js')}}></script>
+<div id="bg-body">
+</div>
+<script type="text/javascript">
+var srcBgArray = ["static/images/1.jpg","static/images/2.jpg"];
+$(document).ready(function() {
+  $('#bg-body').bcatBGSwitcher({
+    urls: srcBgArray,
+    alt: 'Full screen background image'
+  });
+});
+
+</script>
+<div class="loginwarp">
+</div>
+
+<div class="login">
+    <form action="{{ url_for('menu.login_view') }}" method="POST">
+    	<ul>
+        	<li><span>用户名:</span><input type="text" name="username" value="{{ session['username'] }}"></li>
+        	<li><span>密　码:</span><input type="password" name="password"></li>
+            <li>
+            {% if not session.username %}
+                <button type="submit" >登录</button>
+            {% else %}
+                <button type="submit" >退出</button> 
+            {% endif %}</li>
+        </ul>
+        {% for message in get_flashed_messages() %}
+           <script> alert('{{ message }}');</script>
+        {% endfor %}
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% import 'forms.html' as forms %}
+{% block title %}网站查询工具{% endblock %}
+
+{# 导航条 #}
+{% block menu %}{{ super() }}{% endblock %}
+
+{# 打印提示信息 #}
+
+{%- block content %}
+<div class="box">
+    <apan>网址</apan><textarea id="url" cols="20" rows="30" style="Border:1px solid #000"></textarea>
+    <span>关键词</span><textarea id="key" cols="20" rows="30" style="Border:1px solid #000"></textarea>
+    <span>结果</span><textarea id="result" cols="40" rows="30" style="Border:1px solid #000"></textarea>
+    <button id="query-btn" class="btn">开始查询</button>
+
+
+
+</div>
+
+    {% for message in get_flashed_messages() %}
+        <script> alert('{{ message }}');</script>
+    {% endfor %}
+{% endblock -%}

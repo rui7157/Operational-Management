@@ -1,0 +1,431 @@
+/* CSS Document */
+@charset "utf-8";
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, select, p, a, span, img, blockquote, th, td, table {
+    margin: 0;
+    padding: 0;
+    vertical-align: baseline;
+}
+
+/*html5*/
+body, input, select, button, textarea {
+    font: 12px "Microsoft YaHei", Simsun, Tahoma, Arial, sans-serif;
+    color: #000;
+    font-family: "微软雅黑";
+}
+
+body { /*background-color:#f5f5f5;*/
+    background: url(../images/1.jpg) top center no-repeat;
+}
+
+input, select, button, textarea {
+    border: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+button {
+    cursor: pointer;
+}
+
+img {
+    vertical-align: middle;
+    display: inline-block;
+}
+
+fieldset, img, abbr, acronym {
+    border: none;
+}
+
+address, caption, cite, code, dfn, em, th, var, i, td {
+    font-style: normal;
+    font-weight: normal;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+li {
+    vertical-align: middle;
+}
+
+caption, th {
+    text-align: left;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-size: 100%;
+    font-weight: normal;
+}
+
+q:before, q:after {
+    content: '';
+}
+
+p {
+    text-align: left;
+}
+
+a, area, button {
+    text-decoration: none;
+    color: #8e8c8c;
+    outline: none;
+    blr: expression(this.onFocus=this.blur());
+}
+
+.wrap {
+    overflow: hidden;
+}
+
+.fix:after {
+    clear: both;
+    content: "$";
+    display: block;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+    font-size: 0;
+}
+
+.fix {
+    *zoom: 1;
+}
+
+.fr {
+    float: right;
+}
+
+.a-exa{
+    color:#8e8c8c;
+}
+.a-nexa{
+    color:#DD2E31;
+}
+
+#bg-body {
+    background: none repeat scroll 0 0;
+    height: 100%;
+    /* left: -50%;*/
+    position: fixed;
+    /* top: -50%;*/
+    left: 0;
+    top: 0;
+    width: 100%;
+}
+
+#bg-body img {
+    left: 0;
+    margin: auto;
+    width: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 1;
+}
+
+#wrapper {
+    position: relative;
+    width: 1000px;
+    height: 80%;
+    margin: 0 auto;
+}
+
+.nav {
+    height: 55px;
+    line-height: 55px;
+    font-size: 15px;
+    position: relative;
+    background-color: #fff;
+    top: 0px;
+    z-index: 999; /*-webkit-box-shadow: 1px 2px 1px #e6e6e6;  -moz-box-shadow: 2px 1px 1px #e6e6e6;box-shadow: 1px 2px 1px #e6e6e6;*/
+}
+.nav .user{ position:absolute; right:150px;right:10%; display:inline;*top:0px;}
+.nav p {
+    color: #de2023;
+}
+
+.nav ul {
+    width: 1040px;
+    margin: 0 auto;
+}
+
+.nav ul li {
+    float: left;
+    font-weight: bold;
+}
+#li{ text-align:center;}
+
+.nav ul li a {
+    color: #000;
+    display: block;
+    width: 130px;
+    text-align: center;
+    border-right: 1px solid #f0f0f0;
+}
+
+.nav ul li.li-active a {
+    background-color: #de2e31;
+    color: #fff;
+}
+
+.nav ul li.slide-li {
+    position: absolute;
+    border-top: 3px solid #de2e31;
+    z-index: 9999;
+}
+
+.loginwarp {
+    position: absolute;
+    z-index: 999;
+    left: 50%;
+    top: 50%;
+    width: 320px; 	
+    height: 220px;
+    margin: -110px 0 0 -160px;
+    background-color: #fff;
+    filter: alpha(opacity=80);
+    -moz-opacity: 0.8;
+    -khtml-opacity: 0.8;
+    opacity: 0.8;
+    z-index: 99;
+    border: 8px solid #f5f5f5;
+}
+
+.login {
+    position: absolute;
+    z-index: 9999;
+    left: 50%;
+    top: 50%;
+    width: 276px;
+    height: 176px;
+    margin: -110px 0 0 -160px;
+    padding: 30px;
+    line-height: 40px;
+}
+.login ul li {
+	margin-bottom:15px;
+	float:left;
+}
+
+.login ul li span {
+    padding: 0 10px 0 0;
+	float:left !important;
+	height:40px;
+	line-height:40px;
+}
+
+.login input, .login button {
+    height: 38px;
+    padding: 0 10px;
+}
+
+.login input {
+    border: 1px solid #ddd;
+	width:180px;
+    *width: 200px;
+	float:left !important;
+	height:40px;
+	line-height:40px;
+}
+
+.login li button {
+    background-color: #de2e31;
+    width: 200px;
+    border: 1px solid #de2e31;
+    color: #fff;
+    text-align: center;
+    margin-left: 50px;
+	border:none;
+}
+
+.box {
+    width: 1000px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+}
+.box table{
+    table-layout:fixed;
+}
+.box td, .box th {
+
+    border: 1px solid #dedede;
+    /*height: 40px;*/
+    line-height: 40px;
+    padding: 0 10px;
+    overflow: hidden;
+    word-break: keep-all; /* 不换行 */
+    white-space: nowrap; /* 不换行 */
+    text-overflow: ellipsis;
+}
+
+.box th {
+    background-color: #f0f0f0;
+    font-size: 14px;
+    color: #000;
+    font-weight: bold;
+    text-align: center;
+}
+
+.btn {
+    background-color: #de2e31;
+    color: #fff;
+    padding: 5px 15px;
+}
+
+.intTitle, .intUrl {
+    border: 1px solid #dedede;
+    height: 30px;
+    line-height: 30px;
+    width: 360px;
+}
+
+.topTab, .topTab-web {
+    margin-bottom: 35px;
+}
+
+.topTab, .topTab th {
+    background: #f5f5f5;
+}
+
+.topTab td, .topTab th {
+    border: 1px solid #dedede;
+}
+
+.topTab td {
+    height: 50px;
+    line-height: 50px;
+}
+
+.topTab .btn {
+    padding: 8px 25px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.topTab th {
+    color: #000;
+}
+
+#oTable tr:hover {
+    background-color: #ffedec;
+}
+#oTable tr>td:hover{
+
+}
+
+.web input {
+    width: 180px;
+}
+
+.foot {
+    background-color: #333;
+    color: #dedede;
+    text-align: center;
+    line-height: 40px;
+    height: 40px;
+    position:fixed;
+	position:absolute;
+    bottom: 0px;
+    width: 100%;
+}
+
+.warpbox {
+    position: absolute;
+    z-index: 9999;
+    width: 74%;
+    height: 64%;
+    left: 50%;
+    top: 50%;
+    margin: -19% 0 0 -40%;
+    padding: 2% 3%;
+}
+
+.warpbox td, .warpbox th{
+    padding: 1% 2%;
+    border: 1px solid #dedede;
+}
+
+.warpbox th {
+    font-weight: bold;
+    color: #c81316;
+    text-align: center;
+}
+
+.warpbox input {
+    height: 30px;
+    line-height: 32px;
+    display: block;
+    border: 1px solid #ccc;
+    width: 90%;
+    padding: 0 10px;
+}
+
+.warpbox button.intBtn {
+    background-color: #de2e31;
+    height: 30px;
+    width: 80px;
+    border: 1px solid #de2e31;
+    color: #fff;
+    text-align: center;
+}
+
+.page {
+    text-align: center;
+    margin-top: 1%;
+}
+
+.page ul li {
+    display: inline;
+    margin: 0 1%;
+}
+
+.page ul li.thisclass a {
+    color: #de2e31;
+}
+
+/* loading 特效 */
+.loadingPage_bg1 {
+	background:none repeat scroll 0 0 #000;
+	height:100%;
+	left:0; /*:rgba(0,0,0,0.5);*/
+	opacity:0.7;
+	filter:alpha(opacity=70);
+	width:100%;
+	position:absolute;
+	top:0px;
+	z-index:110;
+}
+/*局部背景遮罩*/
+.loadingPage_bg {
+	background:none repeat scroll 0 0 #fff;
+	height:100%;
+	left:0; /*:rgba(0,0,0,0.5);*/
+	opacity:1;
+	filter:alpha(opacity=100);
+	width:100%;
+	z-index:110;
+}
+
+#loadingPage {
+	display:block;
+	font-weight:bold;
+	font-size:12px;
+	color:#595959;
+	height:28px;
+	left:50%;
+	line-height:27px;
+	margin-left:-74px;
+	margin-top:-14px;
+	padding:10px 10px 10px 50px;
+	position:absolute;
+	text-align:left;
+	top:50%;
+	width:148px;
+	z-index:111;
+	background:#FFFFFF;
+	border:2px solid #86A5AD;
+}
