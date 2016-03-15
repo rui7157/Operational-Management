@@ -35,6 +35,7 @@ def post_manager():
     return render_template("post_manager.html")
 
 
+
 @menu.route("/exa_post", methods=["POST", "GET"])
 def exa_post():
     # 帖子审核视图
