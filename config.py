@@ -11,7 +11,7 @@ class NvRayDev(object):
     SECRET_KEY = "c61f1f9e762e16831f676528b89b31d"
     HOST='127.0.0.1'
     USER='root'
-    DB='cdms'
+    DB='cdms_test'
     CHARSET='utf8'
 
 class TestDev():
