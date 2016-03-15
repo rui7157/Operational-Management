@@ -186,6 +186,28 @@ $(function () {
             $(count_td).text(data);
         });
     });
+//批量导入
+    $("#import").click(function(){
+        var html = '<div class="form-row"> <input type="file" name="filename"/> </div>' +
+            ' <div class="form-row"> </div>';
+
+                            new $.flavr({ title : '上传文件', type:"file" , content : '选择您的txt文件', dialog : 'form', form : { content: html, method:
+
+                            'post', enctype :'multipart/form-data' , action : "/article_records_file"}, onSubmit : function( $container, $form ){
+
+                             } });  //return false;
+    });
+
+    $("#import").hover(
+        function(){
+            $(".tishi").fadeIn()
+        },function(){
+            $(".tishi").fadeOut()
+    }
+
+    );
+
+
 });
 
 $(function () {

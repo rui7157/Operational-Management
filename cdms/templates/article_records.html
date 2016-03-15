@@ -12,18 +12,20 @@
     <form action="{{ url_for('menu.article_records') }}" method="POST">
     <table  border="0" cellspacing="0" cellpadding="0" width="100%" class="topTab">
         <tr>
-            <th width="40%">帖子标题</th>
+            <th width="30%">帖子标题</th>
             <th width="40%">帖子地址</th>
-            <th width="20%">操作</th>
+            <th width=30%">操作</th>
         </tr>
 
         <tr>
             <td align="center">{{ forms.input(name="title", class="intTitle") }}</td>
             <td align="center">{{ forms.input(name="url", class="intUrl") }}</td>
-            <td align="center"><button name="" type="submit" class="btn" value="添加" >添加</button><form><input type="date"></form></td>
+            <td align="center"><button name="" type="submit" class="btn" value="添加" >添加</button><a class="btn" id="import">批量导入</a></td>
         </tr>
-
+            
     </table>
+
+        <img class="tishi" src="{{ url_for('static',filename='images/tishi.jpg') }}" style="display: none;position:absolute;left: 20%;top:10%;z-index: 999;">
     <table width="100%" border="0"  id="oTable">
     		<tr>
                 <th width="30%">帖子标题</th>

@@ -78,7 +78,6 @@
                 <td>{{ entry.date }}</td>
                 {%- if is_exa_user >= 1 %} {# 有审核权限 #}
                     <td><span class="a-exa">
-
                         <span status="exaed" {%- if entry.is_exa_post == 1 %} style="display: block;" {% endif -%}>已审核<a style="cursor:pointer;" exa="exa" class="btn exa-btn" name="{{ entry.id }}">取消</a></span>
 
                        <span status="fail" {% if entry.is_exa_post == 2 %} style="display: block;"  {% endif -%}>未通过

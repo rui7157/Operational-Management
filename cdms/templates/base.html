@@ -6,7 +6,11 @@
         <meta charset="UTF-8">
         <title>{% block title %}{% endblock %} - 成都美世在线管理系统</title>
         <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='style/style.css' ) }}" media="all"/>
+        <link rel="stylesheet" type="text/css" src="{{ url_for('static', filename='style/bootstrap.min.css')}}" />
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style/animate.css')}}" />
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style/flavr.css')}}" />
         <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-1.8.3.min.js' ) }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/flavr.min.js')}}"></script>
         <script type="text/javascript" src="{{ url_for('static', filename='js/func.js' ) }}"></script>
     {% endblock -%}
 </head>
@@ -19,7 +23,6 @@
                 <li><a href="{{ url_for('menu.index') }}">首页</a></li>
                 <li><a href="{{ url_for('menu.article_records') }}">记录文章</a></li>
                 <li><a href="{{ url_for('menu.register_web_info') }}">网站注册信息</a></li>
-
                 {#                 通用导航#}
                 <li><a href="{{ url_for('menu.mail') }}">邮件管理</a></li>
                 <li><a href="{{ url_for('tool.tools') }}">工具</a></li>
@@ -49,12 +52,7 @@
 {% block content %}
 
     {% for message in get_flashed_messages() %}
-        <script> alert('{{ message }}');
-
-           jPrompt('输入字符:', '这里是默认值', '带输入框的提示框', function(r) {
-    if( r ) alert('你输入的是 ' + r);
-});
-
+        <script> new $.flavr('{{ message }}');
         </script>
     {% endfor %}
 {% endblock %}
