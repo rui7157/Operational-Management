@@ -14,27 +14,34 @@
         $(function () {
             // 审核/取消审核时候写入数据库
             var exa_btn = $('a[exa=exa]');
-
+            //btn no-btn 通过按钮
+            //btn exa-btn 取消按钮
+            //btn fail-btn 不通过按钮
             function modify_btn(btn) {
                 if (btn.hasClass("exa-btn")) {
-                    btn.text("审核");
-                    btn.removeClass("exa-btn").addClass("no-btn");
-                    $(btn.parent().children()[0]).text("未审核");
-                    $(btn.parent().children()[0]).attr("class", "a-nexa");
-                } else {
-                    btn.text("取消");
-                    btn.removeClass("no-btn").addClass("exa-btn");
-                    $(btn.parent().children()[0]).text("已审核");
-                    $(btn.parent().children()[0]).attr("class", "a-exa");
+                    $(btn.parent()).css("display","none");
+                    btn.parent().parent().children("span[status=noexa]").css("display","block");
+                } else if(btn.hasClass("no-btn")) {
+                    $(btn.parent()).css("display","none");
+                    btn.parent().parent().children("span[status=exaed]").css("display","block");
+                } else{
+                    $(btn.parent()).css("display","none");
+                    btn.parent().parent().children("span[status=fail]").css("display","block");
                 }
             }
 
             exa_btn.click(function () {
                 if ($(this).hasClass("no-btn")) {
                     var operation = "ok";
+                    {# 提交通过 1#}
+                } else if ($(this).hasClass("fail-btn")) {
+                    var operation = "fail";
+                    {# 提交贴子不通过 2#}
                 } else {
-                    var operation = "cancel"
+                    var operation = "cancel";
+                    {# 提交取消 0#}
                 }
+
                 var e_btn = $(this);
                 var post_id = $(this).attr("name");
                 $.post("/exa_post", {
@@ -59,33 +66,36 @@
         <tr>
             <th width="25%">帖子标题</th>
             <th width="35%">帖子地址</th>
-            <th width="10%">姓名</th>
+            <th width="5%">姓名</th>
             <th width="15%">时间</th>
-            <th width="15%">审核</th>
+            <th width="20%">审核</th>
         </tr>
         {%- for entry in entries %}
             <tr>
                 <td>{{ entry.title }}</td>
-                <td>{{ entry.url }}</td>
+                <td><a href="{{ entry.url }}" target="_Blank">{{ entry.url }}</a></td>
                 <td>{{ entry.name }}</td>
                 <td>{{ entry.date }}</td>
+                {%- if is_exa_user >= 1 %} {# 有审核权限 #}
+                    <td><span class="a-exa">
 
+                        <span status="exaed" {%- if entry.is_exa_post == 1 %} style="display: block;" {% endif -%}>已审核<a style="cursor:pointer;" exa="exa" class="btn exa-btn" name="{{ entry.id }}">取消</a></span>
 
-                {%- if entry.is_exa_post == 1 %}
-                    {% if is_exa_user >= 1 %}
-                        <td><span class="a-exa">已审核</span> <a style="cursor:pointer;" exa="exa" class="btn exa-btn"
-                                                              name="{{ entry.id }}">取消</a>
-                        </td>
-                    {% else %}
-                        <td><a>已审核</a></td>
-                    {% endif %}
-                {% else %}
-                    {% if is_exa_user >= 1 %}
-                        <td><span class="a-nexa">未审核</span> <a style="cursor:pointer;" exa="exa" class="btn no-btn"
-                                                               name="{{ entry.id }}">审核</a></td>
-                    {% else %}
-                        <td>未审核</td>
-                    {% endif %}
+                       <span status="fail" {% if entry.is_exa_post == 2 %} style="display: block;"  {% endif -%}>未通过
+                        <a style="cursor:pointer;" exa="exa" class="btn no-btn" name="{{ entry.id }}">通过</a></span>
+
+                        <span status="noexa" {% if entry.is_exa_post == 0 %}style="display: block;" {% endif %} >未审核<a style="cursor:pointer;" exa="exa" class="btn no-btn" #}
+                              name="{{ entry.id }}">通过</a><a style="cursor:pointer;"
+                                                             exa="exa"
+                                                             class="btn fail-btn"
+                                                             name="{{ entry.id }}">不通过</a><span>
+                    </span>
+                    </td>
+
+                {% else %} {# 无审核权限 #}
+                    <td><span class="a-exa">{%- if entry.is_exa_post == 1 %}已审核{% elif entry.is_exa_post == 2 %}
+                        <span status="fail" style="display: block;">未通过</span>{% else %}<span status="noexa" style="display: block;">未审核</span>{% endif -%}  </span>
+                    </td>
                 {% endif -%}
             </tr>
         {% else -%}
@@ -105,7 +115,6 @@
             {% endif %}
 
             {%- for x in number %}
-
                 {% if x == current_page %}
                     <li class="thisclass"><a
                             href="{{ url_for('menu.page', page=x,y=date_y,m=date_m,d=date_d,user_post_id=user_post_id) }}">{{ x }}</a>
@@ -115,7 +124,6 @@
                         <a href="{{ url_for('menu.page', page=x,y=date_y,m=date_m,d=date_d,user_post_id=user_post_id) }}">{{ x }}</a>
                     </li>
                 {% endif %}
-
             {% endfor -%}
 
             {% if current_page >= 1 and current_page < max_list %}

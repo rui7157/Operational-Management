@@ -5,6 +5,7 @@
 {% block menu %}{{ super() }}{% endblock %}
 
 {% block content %}
+    {{ super() }}
 <script type="text/javascript" src={{url_for('static', filename='js/jquery.bcat.bgswitcher.js')}}></script>
 <div id="bg-body">
 </div>

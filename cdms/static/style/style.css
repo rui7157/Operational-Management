@@ -276,6 +276,20 @@ a, area, button {
     color: #fff;
     padding: 5px 15px;
 }
+.a-exa span {
+    display: none;
+}
+
+
+span[status="fail"]{
+    color: #ff0000;
+}
+
+span[status="noexa"]{
+    color: #00a800;
+}
+
+
 
 .intTitle, .intUrl {
     border: 1px solid #dedede;

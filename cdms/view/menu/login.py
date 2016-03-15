@@ -1,6 +1,7 @@
 # -*- coding:utf-8 -*-
 from . import menu
-from flask import  flash, request, url_for, render_template, g, redirect, session
+from flask import flash, request, url_for, render_template, g, redirect, session
+
 
 @menu.route('/login', methods=['POST', 'GET'])
 def login():
@@ -9,12 +10,6 @@ def login():
         return render_template('login.html')
 
     if 'username' in session.keys():
-        # 退出删除 session
-        session.pop('quarters_periphery_entend')
-        session.pop('user_name_id')
-        session.pop('group')
-        session.pop('exa_user')
-        session.pop('username')
         return redirect(url_for('menu.login'))
 
     if g.db.cursor.execute("SELECT password,id FROM users WHERE username=%s", ((request.form['username']),)):
@@ -38,9 +33,13 @@ def login():
     return render_template('login.html')
 
 
-
 @menu.route("/logout")
 def logout():
     if 'username' in session.keys():
+        # 退出删除 session
+        session.pop('quarters_periphery_entend')
+        session.pop('user_name_id')
+        session.pop('group')
+        session.pop('exa_user')
         session.pop('username')
         return redirect(url_for('menu.login'))

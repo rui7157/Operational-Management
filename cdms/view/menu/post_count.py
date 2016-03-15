@@ -45,6 +45,8 @@ def exa_post():
             if is_exa == "ok":
                 sql = """
          UPDATE post_info SET examination = 1 WHERE id = {}"""
+            elif is_exa == "fail":
+                sql = """ UPDATE post_info SET examination = 2 WHERE id = {}"""
             else:
                 sql = """ UPDATE post_info SET examination = 0 WHERE id = {}"""
             g.db.cursor.execute(sql.format(post_id))
