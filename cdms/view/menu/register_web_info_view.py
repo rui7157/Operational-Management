@@ -42,7 +42,7 @@ def register_web_info():
 
     if not g.db.cursor.execute(sql, (mail,)):
         flash(u'该邮箱不存在，请先添加该邮箱!')
-        return redirect(url_for("register_web_info_view"))
+        return redirect(url_for("menu.register_web_info"))
     register_mail_id = g.db.cursor.fetchall()[0][0]
     sql = 'INSERT INTO periphery_entend(register_website, register_website_username, register_website_password)' \
           'VALUES (%s, %s, %s)'

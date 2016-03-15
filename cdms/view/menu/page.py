@@ -47,11 +47,11 @@ def page():
         # -- 分页查询  --
         if date_y and date_m and date_d:
             sql = sql_base + ' AND YEAR(post_date)={y} AND MONTH(post_date)={m} AND DAY(post_date)={d} ORDER BY id DESC LIMIT %s,%s;'
-            sql = sql.format(id, y=int(date_y), m=int(date_m), d=int(date_d))
+            sql = sql.format(username_id, y=int(date_y), m=int(date_m), d=int(date_d))
         else:
             sql = sql_base + ' ORDER BY id DESC LIMIT %s,%s ;'
+            sql = sql.format(username_id)
         if paging_number == 1:
-            print sql %(0, 10)
             g.db.cursor.execute(sql, (0, 10))
         else:
             try:
