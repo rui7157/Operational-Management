@@ -30,7 +30,6 @@ def article_records():
               'VALUES(%s, %s, %s,  now());'
         g.db.cursor.execute(sql, (session['user_name_id'], request.form['title'], request.form['url']))
         g.db.commit()
-        flash(u'添加成功！')
     else:
         flash(u'标题或发帖地址为空!')
 
