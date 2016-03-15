@@ -47,8 +47,15 @@
 {% endblock %}
 
 {% block content %}
+
     {% for message in get_flashed_messages() %}
-        <script> alert('{{ message }}');</script>
+        <script> alert('{{ message }}');
+
+           jPrompt('输入字符:', '这里是默认值', '带输入框的提示框', function(r) {
+    if( r ) alert('你输入的是 ' + r);
+});
+
+        </script>
     {% endfor %}
 {% endblock %}
 {% block foot %}

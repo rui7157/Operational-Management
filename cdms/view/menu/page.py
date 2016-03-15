@@ -51,6 +51,7 @@ def page():
         else:
             sql = sql_base + ' ORDER BY id DESC LIMIT %s,%s ;'
         if paging_number == 1:
+            print sql %(0, 10)
             g.db.cursor.execute(sql, (0, 10))
         else:
             try:

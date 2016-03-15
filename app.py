@@ -4,6 +4,8 @@
 from cdms import create_app
 
 
-app = create_app("NvRayDev")
+
+app = create_app("CidaoDev")
+
 
 

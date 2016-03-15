@@ -33,4 +33,4 @@ def article_records():
     else:
         flash(u'标题或发帖地址为空!')
 
-    return redirect(url_for('article_records'))
+    return redirect(url_for('menu.article_records'))

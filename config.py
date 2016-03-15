@@ -7,18 +7,21 @@ class MainConfig(object):
     DB='cdms'
     CHARSET='utf8'
 
-class NvRayDev(object):
-    SECRET_KEY = "c61f1f9e762e16831f676528b89b31d"
-    HOST='127.0.0.1'
-    USER='root'
-    DB='cdms'
-    CHARSET='utf8'
 
 class TestDev():
     pass
 
+class CidaoDev(object):
+    SECRET_KEY = "c61f1f9e762e16831f676528b89b31d"
+    HOST='127.0.0.1'
+    USER='root'
+    DB='cdms_test'
+    CHARSET='utf8'
+
+
 config = {
     'MainConfig': MainConfig,
     'TestDec':TestDev,
-    'NvRayDev':NvRayDev
+    'CidaoDev':CidaoDev
+
 }
