@@ -9,7 +9,20 @@
 
 {%- block content %}
     <div class="box">
-        <p><a href="{{ url_for('tool.query') }}" class="btn">排名查询 </a></p>
-        <p><a href="{{ url_for('tool.error_query') }}" class="btn">错误查询 </a></p>
+    <div class="panel panel-default">
+        <div class="panel-heading active">
+        <p>工具箱</p>
     </div>
+        <div class="panel-body">
+                    <div class="row">
+                        <div class="col-xs-2">
+        <p><a  href="{{ url_for('tool.query') }}" class="btn">排名查询 </a></p></div>
+                            <div class="col-xs-2">
+        <p><a href="{{ url_for('tool.error_query') }}" class="btn">错误查询 </a></p></div>
+{#                        <div class="col-xs-2"><a class="btn"></a></div>#}
+{#                        <div class="col-xs-2"><a class="btn"></a></div>#}
+{#                        <div class="col-xs-2"><a class="btn"></a></div>#}
+                </div>
+            </div>
+        </div>
 {% endblock -%}

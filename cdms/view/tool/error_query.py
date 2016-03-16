@@ -21,4 +21,4 @@ def error_query():
         for error_info in cursor.fetchall():
             error_info_list.append(dict(url=error_info[1], date=error_info[4]))
     conn.close()
-    return render_template('error_query.html', error_info_list=error_info_list)
+    return render_template('tool/error_query.html', error_info_list=error_info_list)
