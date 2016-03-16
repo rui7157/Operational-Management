@@ -16,6 +16,7 @@ import urllib2, socket
 from lxml import etree
 from multiprocessing import Queue, Process
 socket.timeout(30)
+from threading import Thread
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -70,10 +71,17 @@ def web_api(urls, keys):
         result = Queue()
         key_num = len(keys) / 4
         key_num_yu = len(keys) % 4
-        p1 = Process(target=baidu_paiming, args=(urls, keys[0 * key_num:1 * key_num], result))
-        p2 = Process(target=baidu_paiming, args=(urls, keys[1 * key_num:2 * key_num], result))
-        p3 = Process(target=baidu_paiming, args=(urls, keys[2 * key_num:3 * key_num], result))
-        p4 = Process(target=baidu_paiming, args=(urls, keys[3 * key_num:4 * key_num+key_num_yu], result))
+        # p1 = Process(target=baidu_paiming, args=(urls, keys[0 * key_num:1 * key_num], result))
+        # p2 = Process(target=baidu_paiming, args=(urls, keys[1 * key_num:2 * key_num], result))
+        # p3 = Process(target=baidu_paiming, args=(urls, keys[2 * key_num:3 * key_num], result))
+        # p4 = Process(target=baidu_paiming, args=(urls, keys[3 * key_num:4 * key_num+key_num_yu], result))
+        p1 =Thread(target=baidu_paiming, args=(urls, keys[0 * key_num:1 * key_num], result))
+        p2 = Thread(target=baidu_paiming, args=(urls, keys[1 * key_num:2 * key_num], result))
+        p3 = Thread(target=baidu_paiming, args=(urls, keys[2 * key_num:3 * key_num], result))
+        p4 = Thread(target=baidu_paiming, args=(urls, keys[3 * key_num:4 * key_num+key_num_yu], result))
+
+
+
         p1.start()
         p2.start()
         p3.start()
