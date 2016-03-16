@@ -8,7 +8,8 @@
 {# 打印提示信息 #}
 
 {%- block content %}
-<div class="box">
-    <p><a href="{{url_for('tool.query')}}" class="btn">点击查询 </a></p>
-</div>
+    <div class="box">
+        <p><a href="{{ url_for('tool.query') }}" class="btn">排名查询 </a></p>
+        <p><a href="{{ url_for('tool.error_query') }}" class="btn">错误查询 </a></p>
+    </div>
 {% endblock -%}

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% import 'forms.html' as forms %}
+{% block title %}记录文章{% endblock %}
+
+{# 导航条 #}
+{% block menu %}{{ super() }}{% endblock %}
+
+{% block content %}
+    {% for error_info in error_info_list %}
+        <li>{{ error_info.url }}</li>
+        <li>{{ error_info.date }}</li>
+    {% endfor %}
+
+{% endblock %}

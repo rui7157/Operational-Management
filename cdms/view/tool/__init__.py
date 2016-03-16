@@ -1,4 +1,4 @@
 from flask import Blueprint
 
 tool = Blueprint("tool",__name__)
-from . import tools,baidu_query
+from . import tools,baidu_query, error_query
