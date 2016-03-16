@@ -43,7 +43,7 @@
                 {{ session.get('username') }}，欢迎您！
             </p>
         {%- else -%}
-            <p class="fr">未登录</p>
+            <p class="fr"><a href="{{ url_for('menu.login') }}">登录</a></p>
         {% endif -%}
         </div>
     </div>

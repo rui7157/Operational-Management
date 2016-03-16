@@ -109,6 +109,12 @@ a:hover{
 
 .fr {
     float: right;
+    border: 1px solid #dd2e31;
+    border-radius: 5px;
+    padding: 6px 20px;
+    margin-top: 5px;
+    line-height: 30px;
+    color: #dd2e31;
 }
 
 .a-exa{
