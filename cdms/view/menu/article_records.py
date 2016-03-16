@@ -66,11 +66,11 @@ def article_records_file():
 
     f = request.files["filename"]
     str_data = f.readlines()
-    str_data = [i.decode('gbk')[1::].split() for i in str_data]
+    str_data = [i.decode('gbk').split() for i in str_data]
     fail_data=[]
     for i in str_data:
         try:
-            title = i[0]
+            title = i[0].replace("?","")
             url = i[1]
         except IndexError:
             break

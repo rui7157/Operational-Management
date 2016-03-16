@@ -5,7 +5,7 @@ from cdms import create_app
 
 
 
-app = create_app("CidaoDev")
+app = create_app("MainConfig")
 
 
 
