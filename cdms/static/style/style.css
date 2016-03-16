@@ -4,8 +4,16 @@
 body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, select, p, a, span, img, blockquote, th, td, table {
     margin: 0;
     padding: 0;
-    vertical-align: baseline;
+    /*vertical-align: baseline;*/
+    vertical-align:middle;
 }
+
+*, *::before, *::after {
+    box-sizing:content-box;
+    -moz-box-sizing:content-box; /* Firefox */
+    -webkit-box-sizing:content-box; /* Safari */
+}
+
 
 /*html5*/
 body, input, select, button, textarea {
@@ -398,13 +406,9 @@ span[status="noexa"]{
     margin-top: 1%;
 }
 
-.page ul li {
-    display: inline;
-    margin: 0 1%;
-}
-
 .page ul li.thisclass a {
     color: #de2e31;
+    font-weight: bold;
 }
 
 #import{

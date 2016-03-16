@@ -9,13 +9,16 @@
 
 {%- block content %}
 <div class="box">
-    <apan>网址</apan><textarea id="url" cols="20" rows="30" style="Border:1px solid #000"></textarea>
-    <span>关键词</span><textarea id="key" cols="20" rows="30" style="Border:1px solid #000"></textarea>
-    <span>结果</span><textarea id="result" cols="40" rows="30" style="Border:1px solid #000"></textarea>
-    <button id="query-btn" class="btn">开始查询</button>
 
+<div class="container">
 
-
+    <div class="row">
+    <div class="col-sm-2"><apan>网址</apan><br/><textarea id="url" cols="20" rows="30" style="Border:1px solid #000"></textarea></div>
+    <div class="col-sm-2"><span>关键词</span><br/><textarea id="key" cols="20" rows="30" style="Border:1px solid #000"></textarea></div>
+    <div class="col-sm-4"><span>结果</span><br/><textarea id="result" cols="40" rows="30" style="Border:1px solid #000"></textarea></div>
+    <div class="col-sm-2"><button id="query-btn" class="btn">开始查询</button><br/><a href="{{ url_for("tool.download_excel") }}" class="btn" >下载表格</a></div>
+    </div>
+</div>
 </div>
 
     {% for message in get_flashed_messages() %}

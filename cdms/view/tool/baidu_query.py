@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from . import tool
-from flask import request, url_for, redirect, render_template
+from flask import request, url_for, redirect, render_template,make_response
 
 
 @tool.route("/tool/query", methods=["GET"])
@@ -28,3 +28,11 @@ def query_request():
         result = web_api(urls=urls, keys=keys)
         return "".join(result)
     return redirect(url_for("tool.query"))
+
+@tool.route("/tool/query/download_excel")
+def download_excel():
+    str_data="test"
+    response = make_response(str_data)
+    response.headers['Content-Type'] = 'application/vnd.ms-excel'
+    response.headers['Content-Disposition'] = 'attachment; filename=data.xls'
+    return response

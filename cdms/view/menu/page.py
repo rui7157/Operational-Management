@@ -84,6 +84,15 @@ def page():
         sql = """SELECT exa_user FROM users WHERE id={};"""
         if g.db.cursor.execute(sql.format(current_user_id)):
             is_exa_user = g.db.cursor.fetchall()[0][0]
+            
+    # 分页缩减
+    if len(paging_number) >6:
+        if paging_number.index(current)<3:
+            paging_number=paging_number[:6]
+        elif paging_number.index(current)>len(paging_number)-3:
+            paging_number=paging_number[-6:]
+        else:
+            paging_number=paging_number[paging_number.index(current)-3:paging_number.index(current)+3]
 
     return render_template('page.html', entries=entries, upper_page=current - 1,
                            next_page=current + 1, current_page=current, number=paging_number, max_list=max_list,
