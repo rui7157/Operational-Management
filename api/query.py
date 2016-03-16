@@ -70,6 +70,7 @@ def web_api(urls, keys):
         #关键字小于16不使用多进程
         result = Queue()
         key_num = len(keys) / 4
+
         key_num_yu = len(keys) % 4
         # p1 = Process(target=baidu_paiming, args=(urls, keys[0 * key_num:1 * key_num], result))
         # p2 = Process(target=baidu_paiming, args=(urls, keys[1 * key_num:2 * key_num], result))
@@ -97,7 +98,7 @@ def web_api(urls, keys):
             tmp = result.get()
             re.append(tmp)
         new_dict=dict()
-        for r in range(4):
+        for r in range(len(re)):
             for k,v in re[r].items():
                 if new_dict.has_key(k):
                     new_dict[k]=new_dict[k]+v
