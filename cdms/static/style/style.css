@@ -419,12 +419,14 @@ span[status="noexa"]{
 .tishi {
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
-    border: 3px solid #e00d06;
+    border: 3px solid #de2e31;
     -webkit-box-shadow:0 0 10px rgba(0, 0, 0, 0.5);
     -moz-box-shadow:0 0 10px rgba(0, 0, 0, 0.5);
     box-shadow:0 0 10px rgba(0, 0, 0, 0.5);
 }
-
+.active{
+    background: #de2e31;
+}
 
 /* loading 特效 */
 .loadingPage_bg1 {
