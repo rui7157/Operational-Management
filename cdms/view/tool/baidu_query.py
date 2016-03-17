@@ -29,6 +29,21 @@ def query_request():
         return "".join(result)
     return redirect(url_for("tool.query"))
 
+@tool.route("/tool/query_request2", methods=["POST"])
+def query_request2():
+    if request.method == "POST":
+        print "start"
+        from api.query import baidu_paiming
+        urls = request.form['url']
+        keys = request.form['key']
+        keys=[keys]
+        result=[]
+        print baidu_paiming(hosts=urls,keys=keys,result=result)
+        print result
+    # baidu_paiming()
+
+
+
 @tool.route("/tool/query/download_excel")
 def download_excel():
     str_data="test"

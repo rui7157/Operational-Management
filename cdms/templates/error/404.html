@@ -10,7 +10,7 @@
     {{ super() }}
 <div class="box">
         <p style="font-size: 500%;font-weight: bold;text-align:center;">纳尼！？错误404</p>
-        <p><span style="font-size: 400%;">WHAT !?</span><span style="font-size: 900%;">啥！？</span><img src="{{ url_for('static', filename='images/nani.jpg' ) }}"/></p>
+        <p><span style="font-size: 400%;">WHAT !?</span><span style="font-size: 900%;">啥！？</span><img class="img-rounded" src="{{ url_for('static', filename='images/nani.jpg' ) }}"/></p>
         <p style="font-size: 300%;text-align:center;">页面竟然找不到了！</p>
     </div>
 {% endblock %}

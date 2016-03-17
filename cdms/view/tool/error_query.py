@@ -16,7 +16,6 @@ def error_query():
     cursor = conn.cursor()
     error_query_sql = 'select * from webinfo WHERE name=\'%s\' AND YEAR(date)=YEAR(now()) AND MONTH(date)=MONTH(now()) AND DAY(date)=DAY(now());'
     error_info_list = []
-
     if cursor.execute(error_query_sql % (session.get('username'),)):
         for error_info in cursor.fetchall():
             error_info_list.append(dict(url=error_info[1], date=error_info[4]))

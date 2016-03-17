@@ -203,9 +203,34 @@ $(function () {
             $(".tishi").fadeIn()
         },function(){
             $(".tishi").fadeOut()
+    });
+
+    function query(url,key){
+        data = {"url":url,"key":key};
+        post_url = "/tool/query_request2";
+        $.post(post_url,data,function(result){
+            console.log(result);
+            return 1;
+
+        });
     }
 
-    );
+
+
+    $("#query2-btn").click(function(){
+        var url = $("#url").val();
+        var key = $("#key").val();
+        var key_single = new Array();
+        key_single = key.split("\n");
+        for (i=0;i<key_single.length ;i++ ) {
+        var s = query(url,key_single[i]);
+        //console.log(s);
+
+        }
+
+
+    });
+
 
 
 });

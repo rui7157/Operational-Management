@@ -17,6 +17,7 @@ from lxml import etree
 from multiprocessing import Queue, Process
 socket.timeout(30)
 from threading import Thread
+
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
@@ -31,7 +32,6 @@ def baidu_paiming(hosts, keys, result):
         更据百度site查询 来获取所有关键字
         二次查询 对比 网站url 是否为查询要查询排名的url
     """
-    print u"开始"
     keyfile=dict()
     for key in keys:
         a = 0
@@ -50,22 +50,21 @@ def baidu_paiming(hosts, keys, result):
                             if url != 'www.' and url != '.ca':
                                 # a: 关键字和url匹配成功的次数
                                 a += 1
-                                print "k"
                                 if keyfile.has_key(url):
                                     # if key == '复旦儿童医院':
                                     # print keyfile[url]
                                     keyfile[url]=keyfile[url]+key+" "+str(c)+"\n"
                                 else:
                                     keyfile[url]=key+" "+str(c)+"\n"
-        print keyfile
-        return keyfile
-    # if not isinstance(result,list):
-    #     result.put(keyfile)
-    # else:
-    #     return keyfile
+    if not isinstance(result,list):
+        result.put(keyfile)
+    else:
+        for k,v in keyfile.items():
+            result.append(k+":\n"+v)
+        return result
 
 
-def dict_api(urls, keys):
+def web_api(urls, keys):
     results = []
     if len(keys) > 16:
         #关键字小于16不使用多进程
@@ -81,6 +80,9 @@ def dict_api(urls, keys):
         p2 = Thread(target=baidu_paiming, args=(urls, keys[1 * key_num:2 * key_num], result))
         p3 = Thread(target=baidu_paiming, args=(urls, keys[2 * key_num:3 * key_num], result))
         p4 = Thread(target=baidu_paiming, args=(urls, keys[3 * key_num:4 * key_num+key_num_yu], result))
+
+
+
         p1.start()
         p2.start()
         p3.start()
@@ -102,17 +104,11 @@ def dict_api(urls, keys):
                     new_dict[k]=new_dict[k]+v
                 else:
                     new_dict[k]=v
-        results = new_dict
+
+        for url,result_end in new_dict.items():
+            results.append(url+":\n"+result_end)
     else:
         results=baidu_paiming(keys=keys, hosts=urls, result=results)
-    return results
-
-def web_api(urls, keys):
-    results = []
-    dict_result=dict_api(urls, keys)
-    for k,v in dict_result.items():
-        results.append(k+":\n"+v)
-
     return results
 
 
