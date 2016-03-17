@@ -210,20 +210,23 @@ $(function () {
         post_url = "/tool/query_request2";
         $.post(post_url,data,function(result){
             console.log(result);
-            return 1;
+            $("#th").after("<tr><td>"+result+"</td></tr>");
         });
     }
 
 
 
     $("#query2-btn").click(function(){
+
         var url = $("#url").val();
         var key = $("#key").val();
-        var key_single = new Array();
+        //var key_single = new Array();
         key_single = key.split("\n");
+        $("#url_box").fadeOut("slow");
+        $("#key_box").fadeOut("fast");
+        $("#oTable").show(1500);
         for (i=0;i<key_single.length ;i++ ) {
-        var s = query(url,key_single[i]);
-        //console.log(s);
+            query(url,key_single[i]);
         }
     });
 });

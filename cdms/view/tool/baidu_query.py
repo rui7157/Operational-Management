@@ -38,7 +38,7 @@ def query_request2():
         urls = request.form['url']
         key = request.form['key']
         key = key
-        print baidu_paiming2(hosts=urls, key=key)
+        # print baidu_paiming2(hosts=urls, key=key)
         return "56"
         # baidu_paiming()
 

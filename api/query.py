@@ -67,8 +67,7 @@ def baidu_paiming2(hosts, key):
         更据百度site查询 来获取所有关键字
         二次查询 对比 网站url 是否为查询要查询排名的url
     """
-    print u"开始"
-    keyfile=dict()
+    result =list()
     a = 0
     c = 0
     html = etree.HTML(get_HTML_code(key))
@@ -84,11 +83,7 @@ def baidu_paiming2(hosts, key):
                         if url != 'www.' and url != '.ca':
                             # a: 关键字和url匹配成功的次数
                             a += 1
-                            print "k"
-                            if keyfile.has_key(url):
-                                keyfile[url]=keyfile[url]+key+" "+str(c)+"\n"
-                            else:
-                                keyfile[url]=key+" "+str(c)+"\n"
+                            result.append(url+key+"[%d]" %c)
     print keyfile
     return keyfile
 
