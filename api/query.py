@@ -52,8 +52,6 @@ def baidu_paiming(hosts, keys, result):
                                 a += 1
                                 print "k"
                                 if keyfile.has_key(url):
-                                    # if key == '复旦儿童医院':
-                                    # print keyfile[url]
                                     keyfile[url]=keyfile[url]+key+" "+str(c)+"\n"
                                 else:
                                     keyfile[url]=key+" "+str(c)+"\n"
@@ -63,6 +61,36 @@ def baidu_paiming(hosts, keys, result):
     #     result.put(keyfile)
     # else:
     #     return keyfile
+
+def baidu_paiming2(hosts, key):
+    """
+        更据百度site查询 来获取所有关键字
+        二次查询 对比 网站url 是否为查询要查询排名的url
+    """
+    print u"开始"
+    keyfile=dict()
+    a = 0
+    c = 0
+    html = etree.HTML(get_HTML_code(key))
+    for x in html.xpath('//div[@class="f13"]'):
+        for i in x.xpath('a[@class="c-showurl"]/text()'):
+            # c排名第几位
+            c += 1
+            url = str(i).split('/')[0]
+            for h in hosts:
+                if re.search('cn|com|org|net|info', url):
+                    if re.search(url, h.replace('\n', '')):
+                        # url:网络url  h:自己提供 url
+                        if url != 'www.' and url != '.ca':
+                            # a: 关键字和url匹配成功的次数
+                            a += 1
+                            print "k"
+                            if keyfile.has_key(url):
+                                keyfile[url]=keyfile[url]+key+" "+str(c)+"\n"
+                            else:
+                                keyfile[url]=key+" "+str(c)+"\n"
+    print keyfile
+    return keyfile
 
 
 def dict_api(urls, keys):

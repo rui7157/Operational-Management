@@ -211,7 +211,6 @@ $(function () {
         $.post(post_url,data,function(result){
             console.log(result);
             return 1;
-
         });
     }
 
@@ -225,14 +224,8 @@ $(function () {
         for (i=0;i<key_single.length ;i++ ) {
         var s = query(url,key_single[i]);
         //console.log(s);
-
         }
-
-
     });
-
-
-
 });
 
 $(function () {
