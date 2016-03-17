@@ -5,18 +5,21 @@
 {%- block menu %}{{ super() }}{% endblock -%}
 {%- block content %}
     <div class="box">
-     <a class="list-group-item active"><h4 class="list-group-item-heading">
-         <strong>发帖失败</strong>
-      </h4></a>
-    {% for error_info in error_info_list %}
-              <a href="{{ error_info.url }}" class="list-group-item" target="_blank">
-      <h4 class="list-group-item-heading">
-         {{ error_info.url }}
-      </h4>
-      <p class="list-group-item-text">
-         {{ error_info.date }}
-      </p>
-   </a>
-    {% endfor %}
+        <a class="list-group-item active"><h4 class="list-group-item-heading">
+            <strong>发帖失败</strong>
+        </h4></a>
+        <ol>
+            {% for error_info in error_info_list %}
+                <a href="{{ error_info.url }}" class="list-group-item" target="_blank">
+                    <h4 class="list-group-item-heading text-center">
+                        <li> {{ error_info.url }}</li>
+                    </h4>
+                    <p class="list-group-item-text text-center">
+                        {{ error_info.date }}
+                    </p>
+                </a>
+
+            {% endfor %}
+        </ol>
     </div>
 {% endblock -%}

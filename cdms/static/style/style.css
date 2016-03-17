@@ -54,7 +54,7 @@ address, caption, cite, code, dfn, em, th, var, i, td {
     font-weight: normal;
 }
 
-ol, ul {
+ul {
     list-style: none;
 }
 
