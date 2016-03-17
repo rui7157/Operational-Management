@@ -33,13 +33,12 @@ def query_request():
 def query_request2():
     if request.method == "POST":
         print "start"
-        from api.query import baidu_paiming
+        from api.query import baidu_paiming2
         urls = request.form['url']
-        keys = request.form['key']
-        keys=[keys]
-        result=[]
-        print baidu_paiming(hosts=urls,keys=keys,result=result)
-        print result
+        key = request.form['key']
+        key=key
+        print baidu_paiming2(hosts=urls,key=key)
+        return "56"
     # baidu_paiming()
 
 
