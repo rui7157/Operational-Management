@@ -40,6 +40,7 @@ def query_request2():
         result=[]
         print baidu_paiming(hosts=urls,keys=keys,result=result)
         print result
+        return 1
     # baidu_paiming()
 
 
