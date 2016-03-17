@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from . import tool
-from flask import request, url_for, redirect, render_template, make_response
+from flask import request, url_for, redirect, render_template, make_response, jsonify
 
 
 @tool.route("/tool/query", methods=["GET"])
@@ -33,14 +33,24 @@ def query_request():
 @tool.route("/tool/query_request2", methods=["POST"])
 def query_request2():
     if request.method == "POST":
-        print "start"
-        from api.query import baidu_paiming2
+        from api.query2 import baidu_query_api
         urls = request.form['url']
+        urls = urls.split("\n")
         key = request.form['key']
-        key = key
-        # print baidu_paiming2(hosts=urls, key=key)
-        return "56"
-        # baidu_paiming()
+        result = baidu_query_api(urls=urls, key=key)
+        if result:
+            response_data = ""
+            for dict_data in result:
+                response_data = response_data + u"<tr><td>{key}</td><td>{url}</td><td>百度排名第{page}页第{position}</td><span class='badge pull-right'>{position}</span></tr>".format(
+                    url=dict_data["url"], position=str(dict_data["position"]), page=str(dict_data["page"]),
+                    key=dict_data["key"])
+
+                print response_data
+            return response_data
+        else:
+
+            return "null"
+            # baidu_paiming()
 
 
 @tool.route("/tool/query/download_excel")

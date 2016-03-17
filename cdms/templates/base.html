@@ -52,14 +52,14 @@
 {% block content %}
 
     {% for message in get_flashed_messages() %}
-{#        <script> new $.flavr('{{ message }}');#}
-{#        </script>#}
-        <div class="alert alert-warning">
-   <a href="#" class="close" data-dismiss="alert">
-      &times;
-   </a>
-   <strong>警告！</strong>{{ message }}
-</div>
+        <script> new $.flavr('{{ message }}');
+        </script>
+{#        <div class="alert alert-warning">#}
+{#   <a href="#" class="close" data-dismiss="alert">#}
+{#      &times;#}
+{#   </a>#}
+{#   <strong>警告！</strong>{{ message }}#}
+{#</div>#}
 
 
 

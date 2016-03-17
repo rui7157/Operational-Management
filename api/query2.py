@@ -47,13 +47,13 @@ def serach(baidu_urls, my_urls, key):
     return result
 
 
-def baidu_query_api(page=5):
+def baidu_query_api(urls,key,page=5):
     """
     查询百度关键字排名
     page ： 查询页数
     """
+
     baidu_urls = []
-    key = 'B站'
     html = get_HTML_code(key)
     baidu_page_address = baidu_page(html, page)
     baidu_urls += [get_baidu_all_url(html)]
@@ -61,8 +61,8 @@ def baidu_query_api(page=5):
         html = get_HTML_code(page_address, page=True)
         baidu_urls += [get_baidu_all_url(html)]
     # print urls
-    print serach(baidu_urls, ['www.bilibili.tv', 'www.bilibili.com'], key)
-
+    # print serach(baidu_urls, ['www.bilibili.tv', 'www.bilibili.com'], key)
+    return serach(baidu_urls, urls, key)
 
 if __name__ == '__main__':
     baidu_query_api()

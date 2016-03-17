@@ -209,8 +209,10 @@ $(function () {
         data = {"url":url,"key":key};
         post_url = "/tool/query_request2";
         $.post(post_url,data,function(result){
-            console.log(result);
-            $("#th").after("<tr><td>"+result+"</td></tr>");
+            if (result != "null"){
+                console.log(result);
+                $("#th").after(result);
+            }
         });
     }
 
@@ -220,7 +222,7 @@ $(function () {
 
         var url = $("#url").val();
         var key = $("#key").val();
-        //var key_single = new Array();
+
         key_single = key.split("\n");
         $("#url_box").fadeOut("slow");
         $("#key_box").fadeOut("fast");
