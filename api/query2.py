@@ -8,111 +8,61 @@
 
 """
 
-
-
-
-import requests, json, re, sys
-import urllib2, socket
+import requests
 from lxml import etree
-from multiprocessing import Queue, Process
-socket.timeout(30)
-from threading import Thread
-
-reload(sys)
-sys.setdefaultencoding('utf-8')
 
 
-def get_HTML_code(key):
+def get_HTML_code(key, page=False):
     """ 获取网站源代码 """
-    return requests.get('http://www.baidu.com/s?wd=' + key + '&rn=50').content
+    if not page:
+        return etree.HTML(requests.get('http://www.baidu.com/s?ie=utf-8&wd=' + key).content)
+    return etree.HTML(requests.get('http://www.baidu.com' + key).content)
 
 
-def baidu_paiming(hosts, keys, result):
+def baidu_page(html, page):
+    """ 查询百度前10页地址 """
+    return html.xpath('//div[@id="page"]/a/@href')[:page - 1:]
+
+
+def get_baidu_all_url(html):
+    """ 获取百度非推广位url """
+    urls = []
+    for div in html.xpath('//div[@class="f13"]'):
+        urls.append(div.xpath('a/text()')[0].split('/')[0])
+    return urls
+
+
+def serach(baidu_urls, my_urls, key):
+    """ url 比对。 判断是否有排名 """
+    page = 0
+    result = []
+    for urls in baidu_urls:
+        page += 1
+        for url in urls:
+            try:
+                position = my_urls.index(url) + 1
+                result.append(dict(page=page, position=position, url=my_urls[my_urls.index(url)], key=key))
+            except ValueError:
+                pass
+    return result
+
+
+def baidu_query_api(page=5):
     """
-        更据百度site查询 来获取所有关键字
-        二次查询 对比 网站url 是否为查询要查询排名的url
+    查询百度关键字排名
+    page ： 查询页数
     """
-    keyfile=dict()
-    for key in keys:
-        a = 0
-        c = 0
-
-        html = etree.HTML(get_HTML_code(key))
-        for x in html.xpath('//div[@class="f13"]'):
-            for i in x.xpath('a[@class="c-showurl"]/text()'):
-                # c排名第几位
-                c += 1
-                url = str(i).split('/')[0]
-                for h in hosts:
-                    if re.search('cn|com|org|net|info', url):
-                        if re.search(url, h.replace('\n', '')):
-                            # url:网络url  h:自己提供 url
-                            if url != 'www.' and url != '.ca':
-                                # a: 关键字和url匹配成功的次数
-                                a += 1
-                                if keyfile.has_key(url):
-                                    # if key == '复旦儿童医院':
-                                    # print keyfile[url]
-                                    keyfile[url]=keyfile[url]+key+" "+str(c)+"\n"
-                                else:
-                                    keyfile[url]=key+" "+str(c)+"\n"
-    if not isinstance(result,list):
-        result.put(keyfile)
-    else:
-        for k,v in keyfile.items():
-            result.append(k+":\n"+v)
-        return result
-
-
-def web_api(urls, keys):
-    results = []
-    if len(keys) > 16:
-        #关键字小于16不使用多进程
-        result = Queue()
-        key_num = len(keys) / 4
-
-        key_num_yu = len(keys) % 4
-        # p1 = Process(target=baidu_paiming, args=(urls, keys[0 * key_num:1 * key_num], result))
-        # p2 = Process(target=baidu_paiming, args=(urls, keys[1 * key_num:2 * key_num], result))
-        # p3 = Process(target=baidu_paiming, args=(urls, keys[2 * key_num:3 * key_num], result))
-        # p4 = Process(target=baidu_paiming, args=(urls, keys[3 * key_num:4 * key_num+key_num_yu], result))
-        p1 =Thread(target=baidu_paiming, args=(urls, keys[0 * key_num:1 * key_num], result))
-        p2 = Thread(target=baidu_paiming, args=(urls, keys[1 * key_num:2 * key_num], result))
-        p3 = Thread(target=baidu_paiming, args=(urls, keys[2 * key_num:3 * key_num], result))
-        p4 = Thread(target=baidu_paiming, args=(urls, keys[3 * key_num:4 * key_num+key_num_yu], result))
-
-
-
-        p1.start()
-        p2.start()
-        p3.start()
-        p4.start()
-        p1.join()
-        p2.join()
-        p3.join()
-        p4.join()
-        re = list()
-        result_dict=dict()
-
-        while not result.empty():
-            tmp = result.get()
-            re.append(tmp)
-        new_dict=dict()
-        for r in range(len(re)):
-            for k,v in re[r].items():
-                if new_dict.has_key(k):
-                    new_dict[k]=new_dict[k]+v
-                else:
-                    new_dict[k]=v
-
-        for url,result_end in new_dict.items():
-            results.append(url+":\n"+result_end)
-    else:
-        results=baidu_paiming(keys=keys, hosts=urls, result=results)
-    return results
+    baidu_urls = []
+    key = 'B站'
+    html = get_HTML_code(key)
+    baidu_page_address = baidu_page(html, page)
+    baidu_urls += [get_baidu_all_url(html)]
+    for page_address in baidu_page_address:
+        html = get_HTML_code(page_address, page=True)
+        baidu_urls += [get_baidu_all_url(html)]
+    # print urls
+    print serach(baidu_urls, ['www.bilibili.tv', 'www.bilibili.com'], key)
 
 
 if __name__ == '__main__':
-    urls = open('host.txt', 'rU').readlines()
-    keys = open("key.txt", "rU").readlines()
-    web_api(urls=urls, keys=keys)
+    baidu_query_api()
