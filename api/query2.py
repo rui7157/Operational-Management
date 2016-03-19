@@ -8,15 +8,22 @@
 
 """
 
-import requests
+import urllib2
 from lxml import etree
 
 
 def get_HTML_code(key, page=False):
-    """ 获取网站源代码 """
+    """  获取网站源代码
+    key : 用户查询关键字
+    page : 为 True 时 拼接 url 地址 """
     if not page:
-        return etree.HTML(requests.get('http://www.baidu.com/s?ie=utf-8&wd=' + key).content)
-    return etree.HTML(requests.get('http://www.baidu.com' + key).content)
+        url = 'http://www.baidu.com/s?ie=utf-8&wd=' + key
+    else:
+        url = 'http://www.baidu.com' + key
+    headers = {'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:45.0) Gecko/20100101 Firefox/45.0'}
+    req = urllib2.Request(url=url, headers=headers)
+    html = urllib2.urlopen(req).read()
+    return etree.HTML(html)
 
 
 def baidu_page(html, page):
@@ -33,21 +40,24 @@ def get_baidu_all_url(html):
 
 
 def serach(baidu_urls, my_urls, key):
-    """ url 比对。 判断是否有排名 """
+    """ url 比对。 判断是否有排名
+        baidu_urls : 百度查询结果非推广位全部Url
+        my_urls : 用户需要对比的url
+        key : 用户查询的关键字
+    """
     page = 0
     result = []
     for urls in baidu_urls:
         page += 1
+        position = 0
         for url in urls:
-            try:
-                position = my_urls.index(url) + 1
-                result.append(dict(page=page, position=position, url=my_urls[my_urls.index(url)], key=key))
-            except ValueError:
-                pass
+            position += 1
+            if url in my_urls:
+                result.append(dict(page=page, position=position, url=url, key=key))
     return result
 
 
-def baidu_query_api(urls,key,page=5):
+def baidu_query_api(urls, key, page=5):
     """
     查询百度关键字排名
     page ： 查询页数
@@ -60,9 +70,4 @@ def baidu_query_api(urls,key,page=5):
     for page_address in baidu_page_address:
         html = get_HTML_code(page_address, page=True)
         baidu_urls += [get_baidu_all_url(html)]
-    # print urls
-    # print serach(baidu_urls, ['www.bilibili.tv', 'www.bilibili.com'], key)
     return serach(baidu_urls, urls, key)
-
-if __name__ == '__main__':
-    baidu_query_api()

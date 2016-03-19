@@ -177,60 +177,78 @@ $(function () {
         var current_m = $(this).parent().children()[1].value;
         var current_d = $(this).parent().children()[2].value;
         var user_id = $(this).parent().attr("user_id");
-        $.post("/post_count_select" , {
+        $.post("/post_count_select", {
             "date_y": current_y,
             "date_m": current_m,
             "date_d": current_d,
             "user_id": user_id
-        }, function (data,status) {
+        }, function (data, status) {
             $(count_td).text(data);
         });
     });
 //批量导入
-    $("#import").click(function(){
+    $("#import").click(function () {
         var html = '<div class="form-row"> <input type="file" name="filename" id="inputfile"/> </div>' +
             ' <div class="form-row"> </div>';
 
-                            new $.flavr({ title : '上传文件', type:"file" , content : '选择您的txt文件', dialog : 'form', form : { content: html, method:
+        new $.flavr({
+            title: '上传文件', type: "file", content: '选择您的txt文件', dialog: 'form', form: {
+                content: html, method: 'post', enctype: 'multipart/form-data', action: "/article_records_file"
+            }, onSubmit: function ($container, $form) {
 
-                            'post', enctype :'multipart/form-data' , action : "/article_records_file"}, onSubmit : function( $container, $form ){
-
-                             } });  //return false;
+            }
+        });  //return false;
     });
 
     $("#import").hover(
-        function(){
+        function () {
             $(".tishi").fadeIn()
-        },function(){
+        }, function () {
             $(".tishi").fadeOut()
-    });
-
-    function query(url,key){
-        data = {"url":url,"key":key};
+        });
+    var poc = 0;
+    function query(url, key,sum) {
+        data = {"url": url, "key": key};
         post_url = "/tool/query_request2";
-        $.post(post_url,data,function(result){
-            if (result != "null"){
-                console.log(result);
+        $.post(post_url, data, function (result) {
+            if (result != "null") {
                 $("#th").after(result);
             }
+            poc++;
+            $("#progress_striped").css("width", Math.round(poc / sum * 100) + "%");
         });
+        return 1
     }
 
 
-
-    $("#query2-btn").click(function(){
-
+    $("#query2-btn").click(function () {
         var url = $("#url").val();
         var key = $("#key").val();
-
         key_single = key.split("\n");
-        $("#url_box").fadeOut("slow");
-        $("#key_box").fadeOut("fast");
+        $("#url_box").hide();
+        $("#key_box").hide();
         $("#oTable").show(1500);
-        for (i=0;i<key_single.length ;i++ ) {
-            query(url,key_single[i]);
+        $(this).hide("fast");
+        $("#progress").show("slow");
+        $("#query2-back-btn").fadeIn("slow");
+        for (i = 0; i < key_single.length; i++) {
+            if (query(url, key_single[i],key_single.length) ==1){
+
+            }
         }
     });
+    $("#query2-back-btn").click(function () {
+        $("#progress").hide("fast");
+        $("#url_box").show("slow");
+        $("#key_box").show("slow");
+        $("#oTable").hide();
+        $("#oTable").children("tr").remove();
+        console.log($("#oTable").children("tr"));  //失败
+        $(this).hide("fast");
+        $("#query2-btn").fadeIn("slow");
+
+    });
+
 });
 
 $(function () {
@@ -248,7 +266,6 @@ $(function () {
             }
         });
     }
-
     $("#query-btn").click(function () {
         post_content();
 
