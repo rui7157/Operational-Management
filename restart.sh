@@ -20,10 +20,9 @@ if [ ! -d "/var/www/venv" ]; then
 fi
 
 # 导入 Python 模块
-if [ ! -d "/var/www/venv" ]; then
+if [ -d "/var/www/venv" ]; then
     echo "导入 Python 模块"
-    . /var/www/venv/bin/activate
-    su bayonet pip install -r requirements.txt
+    su - bayonet "/var/www/venv/bin/pip install -r /var/www/cdms/requirements.txt"
 fi
 
 if [ ! -d "/var/www/cdms" ]; then
@@ -35,7 +34,7 @@ fi
 
 # 重启 uwsig 服务
 echo "正在重启服务"
-restart uwsig
+restart uwsgi
 
 # 设置 Python 根目录
 BASE=/home/bayonet/Codes/Blog/venv/bin
