@@ -45,7 +45,7 @@ CommonPerson.Base.LoadingPic = {
         }
     }
 
-}
+};
 
 
 $(document).ready(function () {
@@ -88,13 +88,13 @@ $(function () {
     var tds = $("#oTable tr td");
     tds.dblclick(function () {
         ShowElement(this);
-    })
+    });
 
     var webrregister = $("#oTable .modify-btn");
     tds.dblclick(function () {
         ShowElement(this);
     })
-})
+});
 
 $(function () {
     //保存时候写入数据库
@@ -194,7 +194,6 @@ $(function () {
             title: '上传文件', type: "file", content: '选择您的txt文件', dialog: 'form', form: {
                 content: html, method: 'post', enctype: 'multipart/form-data', action: "/article_records_file"
             }, onSubmit: function ($container, $form) {
-
             }
         });  //return false;
     });
@@ -205,16 +204,19 @@ $(function () {
         }, function () {
             $(".tishi").fadeOut()
         });
+    var poc = 0;
 
-    function query(url, key) {
+    function query(url, key, sum) {
         data = {"url": url, "key": key};
         post_url = "/tool/query_request2";
         $.post(post_url, data, function (result) {
             if (result != "null") {
-                console.log(result);
                 $("#th").after(result);
             }
+            poc++;
+            $("#progress_striped").css("width", Math.round(poc / sum * 100) + "%");
         });
+        return 1
     }
 
 
@@ -222,13 +224,32 @@ $(function () {
         var url = $("#url").val();
         var key = $("#key").val();
         key_single = key.split("\n");
-        $("#url_box").fadeOut("slow");
-        $("#key_box").fadeOut("fast");
+        $("#url_box").hide();
+        $("#key_box").hide();
         $("#oTable").show(1500);
         for (i = 0; i < key_single.length; i++) {
             query(url, key_single[i]);
+            $(this).hide("fast");
+            $("#progress").show("slow");
+            $("#query2-back-btn").fadeIn("slow");
+            for (i = 0; i < key_single.length; i++) {
+                if (query(url, key_single[i], key_single.length) == 1) {
+                }
+            }
         }
     });
+
+    $("#query2-back-btn").click(function () {
+        $("#progress").hide("fast");
+        $("#url_box").show("slow");
+        $("#key_box").show("slow");
+        $("#oTable").hide();
+        $("#oTable tr:gt(0)").remove();
+        $(this).hide("fast");
+        $("#query2-btn").fadeIn("slow");
+
+    });
+
 });
 
 $(function () {
@@ -249,6 +270,5 @@ $(function () {
 
     $("#query-btn").click(function () {
         post_content();
-
     });
 });

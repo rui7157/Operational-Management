@@ -152,6 +152,9 @@ a:hover{
     margin: 0 auto;
 }
 
+#query2-back-btn{
+    display: none;
+}
 .nav {
     height: 55px;
     line-height: 55px;

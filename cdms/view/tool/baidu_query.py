@@ -32,20 +32,22 @@ def query_request():
 
 @tool.route("/tool/query_request2", methods=["POST"])
 def query_request2():
+    from concurrent.futures import ThreadPoolExecutor, Executor
     if request.method == "POST":
         from api.query2 import baidu_query_api
         urls = request.form['url']
         urls = urls.split("\n")
         key = request.form['key']
-        result = baidu_query_api(urls=urls, key=key)
+        executor = ThreadPoolExecutor(5)
+        result = executor.submit(baidu_query_api, urls=urls, key=key)
+        result = result.result()
+        print result
         if result:
             response_data = ""
             for dict_data in result:
-                response_data = response_data + u"<tr><td>{key}</td><td>{url}</td><td>百度排名第{page}页第{position}</td><span class='badge pull-right'>{position}</span></tr>".format(
-                        url=dict_data["url"], position=str(dict_data["position"]), page=str(dict_data["page"]),
-                        key=dict_data["key"])
-
-                print response_data
+                response_data = response_data + u"<tr><td>{key}</td><td>{url}</td><td>百度排名第{page}页第<span class='label label-danger'>{position}</span>个".format(
+                    url=dict_data["url"], position=str(dict_data["position"]), page=str(dict_data["page"]),
+                    key=dict_data["key"])
             return response_data
         else:
             return "null"
