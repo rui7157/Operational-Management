@@ -5,6 +5,7 @@
     {%- block head %}
         <meta charset="UTF-8">
         <title>{% block title %}{% endblock %} - 成都美世在线管理系统</title>
+        <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style/bootstrap.min.css')}}" />
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style/animate.css')}}" />
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style/flavr.css')}}" />
@@ -40,7 +41,7 @@
         {%- if session.get('username') %}
             <div class="user">
             <p class="fr userbtn">
-                {{ session.get('username') }}，欢迎您！
+                <a href="{{ url_for('adm.admin')}}">{{ session.get('username') }}，欢迎您</a>
             </p>
         {%- else -%}
             <p class="fr"><a href="{{ url_for('menu.login') }}">登录</a></p>
@@ -50,30 +51,16 @@
 {% endblock %}
 
 {% block content %}
-
-    {% for message in get_flashed_messages() %}
-        <script> new $.flavr('{{ message }}');
-        </script>
-{#        <div class="alert alert-warning">#}
-{#   <a href="#" class="close" data-dismiss="alert">#}
-{#      &times;#}
-{#   </a>#}
-{#   <strong>警告！</strong>{{ message }}#}
-{#</div>#}
-
-
-
-    {% endfor %}
-
-
-
-
 {% endblock %}
+
 {% block foot %}
     <div class="foot">
-        成都美世在线管理系统-品牌部
+        Copyright © 2016 成都美世在线管理系统-品牌部
     </div>
 {% endblock %}
+{% for message in get_flashed_messages() %}
+    <script> new $.flavr('{{ message }}');</script>
+{% endfor %}
 </body>
 </html>
 

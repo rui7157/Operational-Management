@@ -42,15 +42,13 @@ def query_request2():
             response_data = ""
             for dict_data in result:
                 response_data = response_data + u"<tr><td>{key}</td><td>{url}</td><td>百度排名第{page}页第{position}</td><span class='badge pull-right'>{position}</span></tr>".format(
-                    url=dict_data["url"], position=str(dict_data["position"]), page=str(dict_data["page"]),
-                    key=dict_data["key"])
+                        url=dict_data["url"], position=str(dict_data["position"]), page=str(dict_data["page"]),
+                        key=dict_data["key"])
 
                 print response_data
             return response_data
         else:
-
             return "null"
-            # baidu_paiming()
 
 
 @tool.route("/tool/query/download_excel")

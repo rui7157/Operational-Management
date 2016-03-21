@@ -8,7 +8,6 @@ from ..wrapper import post_count_data
 def post_count():
     if request.method == 'GET':
         entries = post_count_data(session['exa_user'], session['group'])
-
     return render_template('post_count.html', entries=entries)
 
 

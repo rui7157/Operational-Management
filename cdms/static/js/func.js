@@ -177,39 +177,40 @@ $(function () {
         var current_m = $(this).parent().children()[1].value;
         var current_d = $(this).parent().children()[2].value;
         var user_id = $(this).parent().attr("user_id");
-        $.post("/post_count_select" , {
+        $.post("/post_count_select", {
             "date_y": current_y,
             "date_m": current_m,
             "date_d": current_d,
             "user_id": user_id
-        }, function (data,status) {
+        }, function (data, status) {
             $(count_td).text(data);
         });
     });
 //批量导入
-    $("#import").click(function(){
+    $("#import").click(function () {
         var html = '<div class="form-row"> <input type="file" name="filename" id="inputfile"/> </div>' +
             ' <div class="form-row"> </div>';
+        new $.flavr({
+            title: '上传文件', type: "file", content: '选择您的txt文件', dialog: 'form', form: {
+                content: html, method: 'post', enctype: 'multipart/form-data', action: "/article_records_file"
+            }, onSubmit: function ($container, $form) {
 
-                            new $.flavr({ title : '上传文件', type:"file" , content : '选择您的txt文件', dialog : 'form', form : { content: html, method:
-
-                            'post', enctype :'multipart/form-data' , action : "/article_records_file"}, onSubmit : function( $container, $form ){
-
-                             } });  //return false;
+            }
+        });  //return false;
     });
 
     $("#import").hover(
-        function(){
+        function () {
             $(".tishi").fadeIn()
-        },function(){
+        }, function () {
             $(".tishi").fadeOut()
-    });
+        });
 
-    function query(url,key){
-        data = {"url":url,"key":key};
+    function query(url, key) {
+        data = {"url": url, "key": key};
         post_url = "/tool/query_request2";
-        $.post(post_url,data,function(result){
-            if (result != "null"){
+        $.post(post_url, data, function (result) {
+            if (result != "null") {
                 console.log(result);
                 $("#th").after(result);
             }
@@ -217,18 +218,15 @@ $(function () {
     }
 
 
-
-    $("#query2-btn").click(function(){
-
+    $("#query2-btn").click(function () {
         var url = $("#url").val();
         var key = $("#key").val();
-
         key_single = key.split("\n");
         $("#url_box").fadeOut("slow");
         $("#key_box").fadeOut("fast");
         $("#oTable").show(1500);
-        for (i=0;i<key_single.length ;i++ ) {
-            query(url,key_single[i]);
+        for (i = 0; i < key_single.length; i++) {
+            query(url, key_single[i]);
         }
     });
 });

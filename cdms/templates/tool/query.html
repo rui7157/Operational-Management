@@ -8,42 +8,34 @@
 {# 打印提示信息 #}
 
 {%- block content %}
-{#<div class="box">#}
     <div class="container box">
         <div class="panel panel-default">
             <div class="panel-heading">
-              <strong>查询工具</strong>
+                <strong>查询工具</strong>
             </div>
-        <div class="panel-body">
-{#            <div class="row">#}
-            <div class="col-sm-2" id="url_box"><apan class="label label-danger col-sm-offset-5">网址</apan><br/><textarea class="form-control" id="url" cols="20" rows="30" ></textarea></div>
-            <div class="col-sm-2" id="key_box"><span class="label label-danger col-sm-offset-5">关键词</span><br/><textarea class="form-control" id="key" cols="20" rows="30"></textarea></div>
-{#            <div class="col-sm-4"><span class="label label-danger col-sm-offset-5">结果</span><br/><textarea class="form-control" id="result" cols="40" rows="30"></textarea></div>#}
-{##}
-{#                  <div class="col-sm-2">          <ul class="list-group">#}
-{#                 <li class="list-group-item"><button id="query-btn" class="btn">开始查询</button><br/></li>#}
-{##}
-{#                      <li class="list-group-item"> <a {#  href="{{ url_for("tool.download_excel") }}" class="btn" >下载表格<span class="badge">暂无</span></a></li>#}
-{#                      </ul>#}
-{#                  </div>#}
-{#               </div>#}
-
-    <table width="100%" border="0" style="display: none;" id="oTable">
-        <tr id = "th"><th>关键字</th><th>网址</th><th>排名</th></tr>
-
-        </table>
-
-
-            <div class="col-sm-2"><ul class="list-group"> <li class="list-group-item"><a class="btn" id="query2-btn">开始查询</a></li></ul></div>
- </div>
+            <div class="panel-body">
+                <div class="col-sm-2" id="url_box">
+                    <apan class="label label-danger col-sm-offset-5">网址</apan>
+                    <br/><textarea class="form-control" id="url" cols="20" rows="30"></textarea></div>
+                <div class="col-sm-2" id="key_box"><span
+                        class="label label-danger col-sm-offset-5">关键词</span><br/><textarea class="form-control"
+                                                                                            id="key" cols="20"
+                                                                                            rows="30"></textarea></div>
+                <table width="100%" border="0" style="display: none;" id="oTable">
+                    <tr id="th">
+                        <th>关键字</th>
+                        <th>网址</th>
+                        <th>排名</th>
+                    </tr>
+                </table>
+                <div class="col-sm-2">
+                    <ul class="list-group">
+                        <li class="list-group-item"><a class="btn" id="query2-btn">开始查询</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
-
-
-
-   </div>
-
-{#</div>#}
-
+    </div>
     {% for message in get_flashed_messages() %}
         <script> alert('{{ message }}');</script>
     {% endfor %}
