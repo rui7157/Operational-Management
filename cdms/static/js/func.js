@@ -227,16 +227,15 @@ $(function () {
         $("#url_box").hide();
         $("#key_box").hide();
         $("#oTable").show(1500);
+
+        $(this).hide("fast");
+        $("#progress").show("slow");
+        $("#query2-back-btn").fadeIn("slow");
         for (i = 0; i < key_single.length; i++) {
-            query(url, key_single[i]);
-            $(this).hide("fast");
-            $("#progress").show("slow");
-            $("#query2-back-btn").fadeIn("slow");
-            for (i = 0; i < key_single.length; i++) {
-                if (query(url, key_single[i], key_single.length) == 1) {
-                }
+            if (query(url, key_single[i], key_single.length) == 1) {
             }
         }
+
     });
 
     $("#query2-back-btn").click(function () {
