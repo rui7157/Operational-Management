@@ -33,7 +33,6 @@ def query_request():
 @tool.route("/tool/query_request2", methods=["POST"])
 def query_request2():
     from concurrent.futures import ThreadPoolExecutor, Executor
-    ThreadPoolExecutor
     if request.method == "POST":
         from api.query2 import baidu_query_api
         urls = request.form['url']
