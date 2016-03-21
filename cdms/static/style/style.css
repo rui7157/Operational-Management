@@ -357,15 +357,14 @@ span[status="noexa"]{
 .web input {
     width: 180px;
 }
-
+/*底部版权*/
 .foot {
     background-color: #333;
     color: #dedede;
     text-align: center;
-    line-height: 40px;
-    height: 40px;
+    line-height: 30px;
+    height: 30px;
     position:fixed;
-	/*position:relative;*/
     bottom: 0px;
     width: 100%;
 }
@@ -986,3 +985,4 @@ span[status="noexa"]{
     padding: 30px 50px;
   }
 }
+

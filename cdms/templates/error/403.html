@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}您无权访问本页！{% endblock %}
+
+{% block menu %}
+{{ super() }}
+{% endblock %}
+
+
+{% block content %}
+    {{ super() }}
+<div class="box">
+        <p style="font-size: 500%;font-weight: bold;text-align:center;">错误403</p>
+<p style="font-size: 500%;font-weight: bold;text-align:center;">您无权访问本页！！</p>
+    </div>
+{% endblock %}

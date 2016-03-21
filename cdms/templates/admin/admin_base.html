@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+
+<head>
+    {%- block head %}
+
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>{% block title %}成都美世后台管理系统-品牌部{% endblock %}</title>
+        <link rel="stylesheet" href="{{ url_for('static',filename='style/adminstyle.css') }}" type="text/css"
+              media="screen">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style/bootstrap.min.css') }}"/>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style/flavr.css') }}"/>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style/style.css') }}"/>
+        <script type="text/javascript" src="{{ url_for('static',filename='js/jquery-1.8.3.min.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/flavr.min.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static',filename='js/tendina.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static',filename='js/common.js') }}"></script>
+    {% endblock -%}
+</head>
+<body>
+
+
+{% block menu %}<!--顶部-->
+    <div class="layout_top_header">
+        <div style="float: left"><a href="{{ url_for('menu.index') }}"><img src="{{ url_for('static',filename='images/logo.png') }}"/><span class="admin_banner">成都美世后台管理系统-品牌部</span></a>
+        </div>
+        <div id="ad_setting" class="ad_setting">
+            <a class="ad_setting_a" href="javascript:;">
+                <i class="icon-user glyph-icon" style="font-size: 20px"></i>
+                <span>{{ session.get('username') }}</span>
+                <i class="icon-chevron-down glyph-icon"></i>
+            </a>
+            <ul class="dropdown-menu-uu" id="ad_setting_ul">
+                <li class="ad_setting_ul_li"><a href="javascript:;"><i class="icon-user glyph-icon"></i> 个人中心 </a></li>
+                <li class="ad_setting_ul_li"><a href="javascript:;"><i class="icon-cog glyph-icon"></i> 设置 </a></li>
+                <li class="ad_setting_ul_li"><a href="{{ url_for('menu.logout') }}"><i
+                        class="icon-signout glyph-icon"></i> <span class="font-bold">退出</span> </a></li>
+            </ul>
+        </div>
+    </div>
+    <!--顶部结束-->
+    <!--菜单-->
+    <div class="layout_left_menu">
+        <ul class="tendina" id="menu">
+            <li class="childUlLi">
+                <a href="#" {#target="menuFrame"#}><i class="glyph-icon icon-home"></i>首页</a>
+                <ul style="display: none;">
+                    <li><a href="#" {#target="menuFrame"#}><i class="glyph-icon icon-chevron-right"></i>用户添加</a></li>
+                </ul>
+            </li>
+            {%- if session.get('group') ==0 %}
+                <li class="childUlLi">
+                    <a href="#" {#target="menuFrame"#}> <i class="glyph-icon icon-reorder"></i>成员管理</a>
+                    <ul style="display: none;">
+                        <li><a href="{{ url_for('adm.add_member') }}"><i class="glyph-icon icon-chevron-right"></i>添加用户</a></li>
+                        <li><a href="#"><i class="glyph-icon icon-chevron-right"></i>删除用户</a></li>
+                        <li><a href="#"><i class="glyph-icon icon-chevron-right"></i>数据管理</a></li>
+                    </ul>
+                </li>
+            {% endif -%}
+            <li class="childUlLi">
+                <a href="#" {#target="menuFrame"#}> <i class="glyph-icon icon-user"></i>角色管理</a>
+                <ul style="display: none;">
+                    <li><a href="{{ url_for('adm.modify_password') }}"><i class="glyph-icon icon-chevron-right"></i>修改密码</a>
+                    </li>
+                    <li><a href="#"><i class="glyph-icon icon-chevron-right"></i>帮助</a></li>
+                </ul>
+            </li>
+            <li class="childUlLi">
+                <a href="#"> <i class="glyph-icon  icon-location-arrow"></i>菜单管理</a>
+                <ul style="display: none;">
+                    <li><a href="#" {#target="menuFrame"#}><i class="glyph-icon icon-chevron-right"></i>贴子管理</a></li>
+                    <li><a href="#" {#target="menuFrame"#}><i class="glyph-icon icon-chevron-right"></i>批量删除</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <!--菜单-->{% endblock %}
+<div id="layout_right_content" class="layout_right_content">
+
+
+    <div class="mian_content">
+        <div class="route_bg">
+            <a href="{{ url_for('adm.admin') }}">管理首页</a>
+            <i class="glyph-icon icon-chevron-right"></i>
+            {%- block route %}
+            {% endblock -%}
+        </div>
+        {%- block content %}      {% endblock -%}
+    </div>
+</div>
+
+{% block foot %}
+    <div class="foot">
+        Copyright © 2016 成都美世在线管理系统-品牌部
+    </div>
+{% endblock %}
+{% for message in get_flashed_messages() %}
+    <script> new $.flavr('{{ message }}');</script>
+{% endfor %}
+</body>
+</html>

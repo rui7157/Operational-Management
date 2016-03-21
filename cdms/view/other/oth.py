@@ -9,10 +9,13 @@ except Exception:
 
 
 # -----------------错误页面--------------
+@other.app_errorhandler(403)
+def internal_server_error(e):
+    return render_template('error/403.html'), 403
+
 @other.app_errorhandler(404)
 def page_not_found(e):
     return render_template('error/404.html'), 404
-
 
 @other.app_errorhandler(405)
 def request_method_not_allowed(e):

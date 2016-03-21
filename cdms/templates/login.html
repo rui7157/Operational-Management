@@ -25,12 +25,6 @@ $(document).ready(function() {
 <div class="login">
     <form action="{{ url_for('menu.login') }}" method="POST">
     	<ul>
-{#            <li><div class="input-group">#}
-{#             <span class="input-group-addon">用户名</span><input name="username" value="{{ session['username'] }}" type="text" class="form-control" placeholder="请输入用户名">#}
-{#            </div></li>#}
-{#            <li> <div class="input-group">#}
-{#             <span class="input-group-addon">密   码</span><input type="password" class="form-control" name="password" placeholder="请输入密码">#}
-{#            </div></li>#}
         	<li><span>用户名:</span><input type="text" name="username" class="form-control" placeholder="请输入用户名" value="{{ session['username'] }}"></li>
         	<li><span>密　码:</span><input type="password" class="form-control" placeholder="请输入密码" name="password"></li>
             <li>

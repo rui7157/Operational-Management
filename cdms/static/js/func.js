@@ -45,7 +45,7 @@ CommonPerson.Base.LoadingPic = {
         }
     }
 
-}
+};
 
 
 $(document).ready(function () {
@@ -88,13 +88,13 @@ $(function () {
     var tds = $("#oTable tr td");
     tds.dblclick(function () {
         ShowElement(this);
-    })
+    });
 
     var webrregister = $("#oTable .modify-btn");
     tds.dblclick(function () {
         ShowElement(this);
     })
-})
+});
 
 $(function () {
     //保存时候写入数据库
@@ -190,12 +190,10 @@ $(function () {
     $("#import").click(function () {
         var html = '<div class="form-row"> <input type="file" name="filename" id="inputfile"/> </div>' +
             ' <div class="form-row"> </div>';
-
         new $.flavr({
             title: '上传文件', type: "file", content: '选择您的txt文件', dialog: 'form', form: {
                 content: html, method: 'post', enctype: 'multipart/form-data', action: "/article_records_file"
             }, onSubmit: function ($container, $form) {
-
             }
         });  //return false;
     });
@@ -207,7 +205,8 @@ $(function () {
             $(".tishi").fadeOut()
         });
     var poc = 0;
-    function query(url, key,sum) {
+
+    function query(url, key, sum) {
         data = {"url": url, "key": key};
         post_url = "/tool/query_request2";
         $.post(post_url, data, function (result) {
@@ -228,22 +227,24 @@ $(function () {
         $("#url_box").hide();
         $("#key_box").hide();
         $("#oTable").show(1500);
-        $(this).hide("fast");
-        $("#progress").show("slow");
-        $("#query2-back-btn").fadeIn("slow");
         for (i = 0; i < key_single.length; i++) {
-            if (query(url, key_single[i],key_single.length) ==1){
-
+            query(url, key_single[i]);
+            $(this).hide("fast");
+            $("#progress").show("slow");
+            $("#query2-back-btn").fadeIn("slow");
+            for (i = 0; i < key_single.length; i++) {
+                if (query(url, key_single[i], key_single.length) == 1) {
+                }
             }
         }
     });
+
     $("#query2-back-btn").click(function () {
         $("#progress").hide("fast");
         $("#url_box").show("slow");
         $("#key_box").show("slow");
         $("#oTable").hide();
-        $("#oTable").children("tr").remove();
-        console.log($("#oTable").children("tr"));  //失败
+        $("#oTable tr:gt(0)").remove();
         $(this).hide("fast");
         $("#query2-btn").fadeIn("slow");
 
@@ -266,8 +267,8 @@ $(function () {
             }
         });
     }
+
     $("#query-btn").click(function () {
         post_content();
-
     });
 });

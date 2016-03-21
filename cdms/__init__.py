@@ -25,6 +25,7 @@ from flask import Flask
 from view.tool import tool
 from view.menu import menu
 from view.other import other
+from view.admin import adm
 from config import config
 
 app = Flask(__name__)
@@ -36,6 +37,7 @@ def create_app(config_name):
     app.register_blueprint(menu)
     app.register_blueprint(tool)
     app.register_blueprint(other)
+    app.register_blueprint(adm,url_prefix='/admin')
     return app
 
 

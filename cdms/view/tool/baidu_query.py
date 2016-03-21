@@ -41,6 +41,7 @@ def query_request2():
         executor = ThreadPoolExecutor(5)
         result = executor.submit(baidu_query_api, urls=urls, key=key)
         result = result.result()
+        print result
         if result:
             response_data = ""
             for dict_data in result:

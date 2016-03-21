@@ -1,0 +1,65 @@
+{% extends "admin/admin_base.html" %}
+
+{% block route %}
+
+    <a href="#">添加成员</a>
+
+{% endblock %}
+
+{% block content %}
+    <div class="div_from_aoto">
+        <form action="{{ url_for('adm.add_member') }}" method="POST" class="form-horizontal" role="form">
+            <div class="form-group">
+                <label class="control-label col-sm-2">用户名: </label>
+                <div class="col-sm-5"><input type="text" name="username" class="form-control" placeholder="请输入用户名"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">密码: </label>
+                <div class="col-sm-5"><input type="password" name="password" class="form-control" placeholder="请输入密码"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">外围编辑: </label>
+                <div class="col-sm-5"><label class="checkbox-inline">
+                    <input type="radio" name="optionsRadiosinline" id="optionsRadios3"
+                           value="1" checked> 是
+                </label>
+                    <label class="checkbox-inline">
+                        <input type="radio" name="optionsRadiosinline" id="optionsRadios4"
+                               value="0"> 否
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">是否可以审核: </label>
+                <div class="col-sm-5">
+                    <label class="checkbox-inline">
+                        <input type="radio" name="optionsRadiosinline" id="optionsRadios3"
+                               value="1" checked> 是
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="radio" name="optionsRadiosinline" id="optionsRadios4"
+                               value="0"> 否
+                    </label>
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">组长: </label>
+                <div class="col-sm-5"><select class="form-control">
+                    <option>童涛</option>
+                    <option>张行</option>
+                    <option>王颖</option>
+                </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-10">
+                    <button type="submit" class="btn">确认添加</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+{% endblock %}
