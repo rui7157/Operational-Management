@@ -24,7 +24,9 @@
 
 {% block menu %}<!--顶部-->
     <div class="layout_top_header">
-        <div style="float: left"><a href="{{ url_for('menu.index') }}"><img src="{{ url_for('static',filename='images/logo.png') }}"/><span class="admin_banner">成都美世后台管理系统-品牌部</span></a>
+        <div style="float: left"><a href="{{ url_for('menu.index') }}"><img
+                src="{{ url_for('static',filename='images/logo.png') }}"/><span
+                class="admin_banner">成都美世后台管理系统-品牌部</span></a>
         </div>
         <div id="ad_setting" class="ad_setting">
             <a class="ad_setting_a" href="javascript:;">
@@ -50,13 +52,14 @@
                     <li><a href="#" {#target="menuFrame"#}><i class="glyph-icon icon-chevron-right"></i>用户添加</a></li>
                 </ul>
             </li>
-            {%- if session.get('group') ==0 %}
+            {%- if session.get('exa_user') >0 %}
                 <li class="childUlLi">
                     <a href="#" {#target="menuFrame"#}> <i class="glyph-icon icon-reorder"></i>成员管理</a>
                     <ul style="display: none;">
-                        <li><a href="{{ url_for('adm.add_member') }}"><i class="glyph-icon icon-chevron-right"></i>添加用户</a></li>
+                        <li><a href="{{ url_for('adm.add_member') }}"><i class="glyph-icon icon-chevron-right"></i>添加用户</a>
+                        </li>
                         <li><a href="#"><i class="glyph-icon icon-chevron-right"></i>删除用户</a></li>
-                        <li><a href="#"><i class="glyph-icon icon-chevron-right"></i>数据管理</a></li>
+                        <li><a href="#"><i class="glyph-icon icon-chevron-right"></i>成员管理</a></li>
                     </ul>
                 </li>
             {% endif -%}
@@ -68,13 +71,13 @@
                     <li><a href="#"><i class="glyph-icon icon-chevron-right"></i>帮助</a></li>
                 </ul>
             </li>
-            <li class="childUlLi">
-                <a href="#"> <i class="glyph-icon  icon-location-arrow"></i>菜单管理</a>
-                <ul style="display: none;">
-                    <li><a href="#" {#target="menuFrame"#}><i class="glyph-icon icon-chevron-right"></i>贴子管理</a></li>
-                    <li><a href="#" {#target="menuFrame"#}><i class="glyph-icon icon-chevron-right"></i>批量删除</a></li>
-                </ul>
-            </li>
+{#            <li class="childUlLi">#}
+{#                <a href="#"> <i class="glyph-icon  icon-location-arrow"></i>菜单管理</a>#}
+{#                <ul style="display: none;">#}
+{#                    <li><a href="#" ><i class="glyph-icon icon-chevron-right"></i>贴子管理</a></li>#}
+{#                    <li><a href="#" ><i class="glyph-icon icon-chevron-right"></i>批量删除</a></li>#}
+{#                </ul>#}
+{#            </li>#}
         </ul>
     </div>
     <!--菜单-->{% endblock %}

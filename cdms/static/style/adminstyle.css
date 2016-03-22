@@ -121,6 +121,9 @@ body {
     padding-right: 5px;
     vertical-align: middle;
 }
+.dropdown-menu-uu{
+    display: none;
+}
 
 .dropdown-menu-uu:after {
     position: absolute;

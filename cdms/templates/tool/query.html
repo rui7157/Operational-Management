@@ -14,7 +14,7 @@
                 <strong>查询工具</strong>
             </div>
             <div class="panel-body">
-                <div class="progress progress-striped active" id="progress" style="display: none;">
+                <div class="progress progress-striped" id="progress" style="display: none;">
                     <div class="progress-bar progress-bar-danger" id="progress_striped" role="progressbar"
                          aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
                          style="width:0%;">
@@ -28,35 +28,19 @@
                         class="label label-danger col-sm-offset-5">关键词</span><br/><textarea class="form-control"
                                                                                             id="key" cols="20"
                                                                                             rows="30"></textarea></div>
-                {#            <div class="col-sm-4"><span class="label label-danger col-sm-offset-5">结果</span><br/><textarea class="form-control" id="result" cols="40" rows="30"></textarea></div>#}
-                {##}
-                {#                  <div class="col-sm-2">          <ul class="list-group">#}
-                {#                 <li class="list-group-item"><button id="query-btn" class="btn">开始查询</button><br/></li>#}
-                {##}
-                {#                      <li class="list-group-item"> <a {#  href="{{ url_for("tool.download_excel") }}" class="btn" >下载表格<span class="badge">暂无</span></a></li>#}
-                {#                      </ul>#}
-                {#                  </div>#}
-                {#               </div>#}
-
                 <table width="100%" border="0" style="display: none;" id="oTable">
                     <tr id="th">
                         <th>关键字</th>
                         <th>网址</th>
                         <th>排名</th>
                     </tr>
-                    <tr>
-                        <td>关键字</td>
-                        <td>网址</td>
-                        <td>排名</td>
-                    </tr>
                 </table>
 
 
                 <div class="col-sm-2">
                     <ul class="list-group">
-                        <li class="list-group-item"><a class="btn" id="query2-btn">开始查询</a><a class="btn"
-                                                                                              id="query2-back-btn">返回查询</a>
-                        </li>
+                        <li class="list-group-item"><a class="btn" id="query2-btn">开始查询</a><a class="btn" id="query2-back-btn">返回查询</a></li>
+                        <li class="list-group-item"> <a href="{{ url_for("tool.download_excel") }}" class="btn" >下载表格</a></li>
                     </ul>
                 </div>
 
