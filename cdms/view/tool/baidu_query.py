@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from . import tool
-from flask import request, url_for, redirect, render_template, make_response,session
+from flask import request, url_for, redirect, render_template, make_response,session,flash
 import xlwt
 import StringIO
 
@@ -36,9 +36,7 @@ def query_request():
 def query_request2():
     from concurrent.futures import ThreadPoolExecutor, Executor
     if request.method == "POST":
-        session.urls=[]
-        session.keys=[]
-        session.result=[]
+        session.excel_data=""
         from api.query2 import baidu_query_api
         urls = request.form['url']
         urls = urls.split("\n")
@@ -46,13 +44,10 @@ def query_request2():
         executor = ThreadPoolExecutor(5)
         result = executor.submit(baidu_query_api, urls=urls, key=key)
         result = result.result()
-        print result
         if result:
             response_data = ""
             for dict_data in result:
-                session.urls.append(dict_data["url"])
-                session.keys.append(dict_data["key"])
-                session.result.append("百度排名第{page}页第{position}个".format(position=str(dict_data["position"]), page=str(dict_data["page"])))
+                session.excel_data="{old_data}{url}:{position}:{page}:{key},".format(old_data=session.excel_data,url=dict_data["url"],page=dict_data["page"],key=dict_data["key"])
                 response_data = response_data + u"<tr><td>{key}</td><td>{url}</td><td>百度排名第{page}页第<span class='label label-danger'>{position}</span>个".format(
                     url=dict_data["url"], position=str(dict_data["position"]), page=str(dict_data["page"]),
                     key=dict_data["key"])
@@ -63,23 +58,45 @@ def query_request2():
 
 @tool.route("/tool/query/download_excel")
 def download_excel():
-    str_data = generate_xls(session.get('urls'),session.get('keys'),session.get('result'))
-    response = make_response(str_data)
-    response.headers['Content-Type'] = 'application/vnd.ms-excel'
-    response.headers['Transfer-Encoding']='chunked'
-    response.headers['Content-Disposition'] = 'attachment; filename=bauduquery.xls'
-    return response
+    if session.get('excel_data'):
+        data=session.get('excel_data').split(",")
+        del session.excel_data
+        urls,keys,result=[],[],[]
+        for d in data:
+            for url,pos,page,key in d.split(":"):
+                urls.append(url)
+                keys.append(key)
+                result.append("百度排名第{page}页第{position}个".format(page=page,position=pos))
+        str_data = generate_xls(urls,keys,result)
+        response = make_response(str_data)
+        response.headers['Content-Type'] = 'application/vnd.ms-excel'
+        response.headers['Transfer-Encoding']='chunked'
+        response.headers['Content-Disposition'] = 'attachment; filename=bauduquery.xls'
+        return response
+    else:
+        flash("没有数据！")
+        return redirect(url_for("tool.query"))
 
 
 def generate_xls(urls,keys,result):
     xls_file = xlwt.Workbook()
     sheet = xls_file.add_sheet(u"百度排名", cell_overwrite_ok=True)
+    font0 = xlwt.Font()
+    font0.name = 'Times New Roman'
+    font0.colour_index = 2
+    font0.bold = True
+    style0 = xlwt.XFStyle()
+    style0.font = font0
     row=0
-    for url,key,res in zip(urls,keys,result):
-        row+=1
-        sheet.write(row,0,url.decode("utf-8"))
-        sheet.write(row,1,key.decode("utf-8"))
-        sheet.write(row,2,res.decode("utf-8"))
+    sheet.write(0,0,u"网址",style0)
+    sheet.write(0,1,u"关键词",style0)
+    sheet.write(0,2,u"排名",style0)
+    if urls!=None and keys!=None and result!=None:
+        for url,key,res in zip(urls,keys,result):
+            row+=1
+            sheet.write(row,0,url.decode("utf-8"))
+            sheet.write(row,1,key.decode("utf-8"))
+            sheet.write(row,2,res.decode("utf-8"))
     ios=StringIO.StringIO()
     xls_file.save(ios)
     ios.seek(0)
