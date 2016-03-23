@@ -2,9 +2,11 @@
 from . import menu
 from ..wrapper import authorize
 from flask import flash, request, url_for, render_template, g, redirect, session
-# import xlrd
-# import os
-# from werkzeug.utils import secure_filename
+import xlrd
+import os
+from werkzeug.utils import secure_filename
+
+
 @menu.route('/article_records', methods=['POST', 'GET'])
 @authorize
 def article_records():
@@ -37,72 +39,48 @@ def article_records():
 
     return redirect(url_for('menu.article_records'))
 
+
 @menu.route('/article_records_file', methods=['POST'])
 @authorize
 def article_records_file():
 
-    # def get_data(filepath):
-    #     """获取excel数据源"""         # 改成自己的路径
-    #     is_valid = False            # 验证文件
-    #     try:
-    #         filepath = [file, filepath][filepath != '']
-    #         print filepath
-    #         # 判断给出的路径是不是xls格式
-    #         if os.path.isfile(filepath):
-    #             filename = os.path.basename(filepath)
-    #             if filename.split('.')[1] == 'xls':
-    #                 is_valid = True
-    #         data = None
-    #         if is_valid:
-    #             data = xlrd.open_workbook(filepath)
-    #     except Exception, e:
-    #         flash("上传遇到错误！")
-    #         return None
-    #     return data
-    def check_data(url,*title):
-        if url.isalpha():
-            return False
-        return True
+    def write_sql(str_data):
+        success=0
+        fail_data = ""
+        for i in str_data:
+            try:
+                title = i[0].replace("?", "")
+                url = i[1]
+                success+=1
+            except IndexError:
+                fail_data = fail_data.join(i)
+            g.db.cursor.execute('INSERT INTO  post_info (user_name_id, post_title, post_address, post_date) ' \
+                            'VALUES(%s, "%s", "%s",  now());' % (session['user_name_id'], title, url))
+            g.db.commit()
+        return fail_data,success
 
     f = request.files["filename"]
-    str_data = f.readlines()
-    str_data = [i.decode('gbk').split() for i in str_data]
-    fail_data=[]
-    for i in str_data:
-        try:
-            title = i[0].replace("?","")
-            url = i[1]
-        except IndexError:
-            break
-        if check_data(url):
-            g.db.cursor.execute('INSERT INTO  post_info (user_name_id, post_title, post_address, post_date) ' \
-          'VALUES(%s, "%s", "%s",  now());' %(session['user_name_id'], title, url))
-        else:
-            fail_data.append(i[0]+":"+i[1]+"\n")
-    g.db.commit()
+    filename = secure_filename(f.filename)
+    fileformat = filename.split(".")[-1:][0]
+    if fileformat == "txt":
+        str_data = f.readlines()
+        str_data = [i.decode('gbk').split() for i in str_data]
+        fail_data=write_sql(str_data)
+    elif fileformat in ["xls", "xlsx", "XLS", "XLSX"]:
+        filepath = os.path.join(os.getcwd(),"cdms","static","upload",filename)
+        f.save(filepath)
+        f=xlrd.open_workbook(filepath)
+        os.remove(filepath)
+        sheet_data=f.sheet_by_index(0)
+        row_count = sheet_data.nrows
+        excel_data = []
+        for row_num in xrange(row_count):
+            excel_data.append([sheet_data.cell(row_num, 0).value, sheet_data.cell(row_num, 1).value])
+        fail_data,success=write_sql(excel_data)
+    else:
+        flash("不支持您所上传的文件类型！")
     if fail_data:
-        flash("插入失败：{}".format("".join(fail_data)))
+        flash("失败的条目：" + fail_data)
+    else:
+        flash("成功上传所有条目{}条！".format(success))
     return redirect(url_for("menu.article_records"))  #
-
-
-
-    #     dict_data[i.split("\t")[0]] = i.split()[1]
-    # print dict_data
-    # data = xlrd.xldate(f)
-    # print data
-    # fname = secure_filename(f.filename)
-    # # fpath = os.path.join(url_for("static",filename = "temp"),fname)
-    # fpath = url_for("static",filename = "temp")+"/"+fname
-    # print fpath
-    # f.save(fpath)
-    # data = get_data(fpath)
-    # if data:
-    #     table = data.sheet_by_index(0)
-    #     nrows = table.nrows        #获取行数
-    #     for i in range(0,nrows):
-    #         print table.cell(i,0).value  #第一列
-    #         print table.cell(i,1).value #第二列
-
-        # table.cell(i,col_index[0]).value
-
-

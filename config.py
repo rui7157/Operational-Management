@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+import os
 class MainConfig(object):
     SECRET_KEY = "c61f1f9e762e16831f676528b89b31d"
     HOST='192.168.2.222'
@@ -17,7 +17,7 @@ class CidaoDev(object):
     USER='root'
     DB='cdms_test'
     CHARSET='utf8'
-
+    UPLOAD_PATH=os.getenv('UPLOAD_PATH')
 
 config = {
     'MainConfig': MainConfig,

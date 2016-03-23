@@ -36,7 +36,7 @@
                 <td>{{ entry.username }}</td>
                 <td>{{ entry.password }}</td>
                 <td>{{ entry.date }}</td>
-                <td><a href="{{ url_for('menu.mail_delete', key=entry.key,id=entry.id ) }}" class="btn">删除</a></td>
+                <td><a href="{{ url_for('menu.mail_delete_view', key=entry.key,id=entry.id ) }}" class="btn">删除</a></td>
             </tr>
         {% else %}
             <tr><td colspan="3">没有数据</td></tr>
