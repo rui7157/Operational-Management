@@ -48,6 +48,27 @@ CommonPerson.Base.LoadingPic = {
 };
 
 
+//实现form post 提交并跳转
+$.extend({
+    StandardPost: function (url, args) {
+        var body = $(document.body),
+            form = $("<form method='post'></form>"),
+            input;
+        form.attr({"action": url});
+        $.each(args, function (key, value) {
+            input = $("<input type='hidden'>");
+            input.attr({"name": key});
+            input.val(value);
+            form.append(input);
+        });
+
+        form.appendTo(document.body);
+        form.submit();
+        document.body.removeChild(form[0]);
+    }
+});
+
+
 $(document).ready(function () {
 //$(".nav li").first().addClass("on");
     $(".nav li").click(function () {
@@ -207,6 +228,7 @@ $(function () {
     var poc = 0;
 
     function query(url, key, sum) {
+
         data = {"url": url, "key": key};
         post_url = "/tool/query_request2";
         $.post(post_url, data, function (result) {
@@ -223,14 +245,16 @@ $(function () {
     $("#query2-btn").click(function () {
         var url = $("#url").val();
         var key = $("#key").val();
+        poc = 0;
         key_single = key.split("\n");
         $("#url_box").hide();
         $("#key_box").hide();
         $("#oTable").show(1500);
-
+        $("#download").show();
         $(this).hide("fast");
+
         $("#progress").show("slow");
-        $("#query2-back-btn").fadeIn("slow");
+        $("#query2-back-btn").show();
         for (i = 0; i < key_single.length; i++) {
             if (query(url, key_single[i], key_single.length) == 1) {
             }
@@ -243,12 +267,24 @@ $(function () {
         $("#url_box").show("slow");
         $("#key_box").show("slow");
         $("#oTable").hide();
+
         $("#oTable tr:gt(0)").remove();
+        $("#download").hide("fast");
         $(this).hide("fast");
         $("#query2-btn").fadeIn("slow");
 
+
     });
 
+    //下载表格
+    $("#download").click(function () {
+        var json_data = {};
+        for (var i = 1; i < $("#oTable tr").length; i++) {
+            var tr_data = $($("#oTable tr")[i]).children("td");
+            json_data[i] = $(tr_data[0]).text() + "&" + $(tr_data[1]).text() + "&" + $(tr_data[2]).text();
+        }
+        $.StandardPost("/tool/query/download_excel", json_data);
+    });
 });
 
 $(function () {

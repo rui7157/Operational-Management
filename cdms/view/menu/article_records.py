@@ -47,13 +47,15 @@ def article_records_file():
     def write_sql(str_data):
         success=0
         fail_data = ""
-        for i in str_data:
+        for index,i in enumerate(str_data):
+
             try:
                 title = i[0].replace("?", "")
                 url = i[1]
                 success+=1
             except IndexError:
-                fail_data = fail_data.join(i)
+                fail_data = fail_data+str(index+1)+":"+"".join(i)+" | "
+                continue
             g.db.cursor.execute('INSERT INTO  post_info (user_name_id, post_title, post_address, post_date) ' \
                             'VALUES(%s, "%s", "%s",  now());' % (session['user_name_id'], title, url))
             g.db.commit()
@@ -65,7 +67,7 @@ def article_records_file():
     if fileformat == "txt":
         str_data = f.readlines()
         str_data = [i.decode('gbk').split() for i in str_data]
-        fail_data=write_sql(str_data)
+        fail_data,success=write_sql(str_data)
     elif fileformat in ["xls", "xlsx", "XLS", "XLSX"]:
         filepath = os.path.join(os.getcwd(),"cdms","static","upload",filename)
         f.save(filepath)
@@ -80,7 +82,7 @@ def article_records_file():
     else:
         flash("不支持您所上传的文件类型！")
     if fail_data:
-        flash("失败的条目：" + fail_data)
+        flash("成功{success}条，失败的条目：{fail}".format(success=success,fail=str(fail_data)))
     else:
         flash("成功上传所有条目{}条！".format(success))
     return redirect(url_for("menu.article_records"))  #

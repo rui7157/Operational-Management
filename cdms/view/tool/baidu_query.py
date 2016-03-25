@@ -36,7 +36,6 @@ def query_request():
 def query_request2():
     from concurrent.futures import ThreadPoolExecutor, Executor
     if request.method == "POST":
-        session.excel_data = ""
         from api.query2 import baidu_query_api
         urls = request.form['url']
         urls = urls.split("\n")
@@ -47,10 +46,6 @@ def query_request2():
         if result:
             response_data = ""
             for dict_data in result:
-                session.excel_data = "{old_data}{url}:{position}:{page}:{key},".format(
-                    old_data=session.get("dict_data"),
-                    url=dict_data["url"], position=str(dict_data["position"]), page=str(dict_data["page"]),
-                    key=dict_data["key"])
                 response_data = response_data + u"<tr><td>{key}</td><td>{url}</td><td>百度排名第{page}页第<span class='label label-danger'>{position}</span>个".format(
                         url=dict_data["url"], position=str(dict_data["position"]), page=str(dict_data["page"]),
                         key=dict_data["key"])
@@ -59,17 +54,17 @@ def query_request2():
             return "null"
 
 
-@tool.route("/tool/query/download_excel")
+@tool.route("/tool/query/download_excel",methods=["POST"])
 def download_excel():
-    if session.get('excel_data'):
-        data = session.get('excel_data').split(",")
-        del session.excel_data
-        urls, keys, result = [], [], []
-        for d in data:
-            for url, pos, page, key in d.split(":"):
-                urls.append(url)
-                keys.append(key)
-                result.append("百度排名第{page}页第{position}个".format(page=page, position=pos))
+    print request.form
+    if request.method=="POST":
+        web_table_data=request.form.values()
+        urls,keys,result=[],[],[]
+        for table_tr in web_table_data:
+            key,url,res=table_tr.split("&")
+            urls.append(url)
+            keys.append(key)
+            result.append(res)
         str_data = generate_xls(urls, keys, result)
         response = make_response(str_data)
         response.headers['Content-Type'] = 'application/vnd.ms-excel'
@@ -77,8 +72,8 @@ def download_excel():
         response.headers['Content-Disposition'] = 'attachment; filename=bauduquery.xls'
         return response
     else:
-        flash("没有数据！")
-        return redirect(url_for("tool.query"))
+        flash("没有数据")
+        return redirect(url_for("tool.query_request"))
 
 
 def generate_xls(urls, keys, result):
@@ -92,8 +87,8 @@ def generate_xls(urls, keys, result):
     style0.font = font0
     row = 0
     sheet.col(0).width = 256 * 20
+    sheet.col(1).width = 256 * 30
     sheet.col(2).width = 256 * 20
-    sheet.col(3).width = 256 * 20
 
     sheet.write(0, 0, u"网址", style0)
     sheet.write(0, 1, u"关键词", style0)

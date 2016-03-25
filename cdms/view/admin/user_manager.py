@@ -16,7 +16,7 @@ def modify_password():
         g.db.cursor.execute(sql.format(id=current_user_id))
         if g.db.cursor.fetchall()[0][0] == old_pwd:
             try:
-                sql = """UPDATE users SET password={new_pwd} WHERE id={id};"""
+                sql = """UPDATE users SET password='{new_pwd}' WHERE id={id};"""
                 g.db.cursor.execute(sql.format(new_pwd=new_pwd, id=current_user_id))
                 g.db.commit()
                 flash("修改成功")
