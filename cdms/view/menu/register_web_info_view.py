@@ -36,17 +36,15 @@ def register_web_info():
     username = request.form['username']
     password = request.form['password']
     mail = request.form['mail']
-    # 查询邮箱是否 存在 存在则取id
+
 
     sql = 'SELECT id FROM register_mail WHERE mail_username = %s'
-
     if not g.db.cursor.execute(sql, (mail,)):
          #邮箱不存在,默认为0
         register_mail_id=0
-
-
     else:
         register_mail_id = g.db.cursor.fetchall()[0][0]
+
     sql = 'INSERT INTO periphery_entend(register_website, register_website_username, register_website_password)' \
           'VALUES (%s, %s, %s)'
     print 1,sql %(web_site, username, password)
