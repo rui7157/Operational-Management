@@ -43,8 +43,7 @@ def exa_post():
         is_exa = request.form["is_exa"]
         try:
             if is_exa == "ok":
-                sql = """
-         UPDATE post_info SET examination = 1 WHERE id = {}"""
+                sql = """UPDATE post_info SET examination = 1 WHERE id = {}"""
             elif is_exa == "fail":
                 sql = """ UPDATE post_info SET examination = 2 WHERE id = {}"""
             else:

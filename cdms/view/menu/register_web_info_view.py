@@ -41,12 +41,15 @@ def register_web_info():
     sql = 'SELECT id FROM register_mail WHERE mail_username = %s'
 
     if not g.db.cursor.execute(sql, (mail,)):
-        flash(u'该邮箱不存在，请先添加该邮箱!')
-        return redirect(url_for("menu.register_web_info"))
-    register_mail_id = g.db.cursor.fetchall()[0][0]
+         #邮箱不存在,默认为0
+        register_mail_id=0
+
+
+    else:
+        register_mail_id = g.db.cursor.fetchall()[0][0]
     sql = 'INSERT INTO periphery_entend(register_website, register_website_username, register_website_password)' \
           'VALUES (%s, %s, %s)'
-
+    print 1,sql %(web_site, username, password)
     # 处理并发数据出错问题
     lock.acquire()
     if g.db.cursor.execute(sql, (web_site, username, password)):
@@ -55,6 +58,7 @@ def register_web_info():
             register_web_id = g.db.cursor.fetchall()[0][0]
             sql = 'INSERT INTO periphery_entend_data (user_id, periphery_entend_id, register_mail_id, data_date) ' \
                   'VALUES (%d, %d, %d, now())' % (session['user_name_id'], register_web_id, register_mail_id)
+            print 2,sql
             if g.db.cursor.execute(sql):
                 flash(u'添加成功！')
                 g.db.commit()

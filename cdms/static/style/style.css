@@ -152,7 +152,7 @@ a:hover{
     margin: 0 auto;
 }
 
-#query2-back-btn{
+#query2-back-btn,#download{
     display: none;
 }
 .nav {
