@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
+from flask import flash, request, url_for, render_template, g, redirect
+
 from . import menu
 from ..wrapper import authorize
-from flask import flash, request, url_for, render_template, g, redirect
 
 
 @menu.route('/mail', methods=['GET', 'POST'])

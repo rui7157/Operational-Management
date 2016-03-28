@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
+from threading import Lock
+
+from flask import flash, request, url_for, render_template, g, redirect, session
+
 from . import menu
 from ..wrapper import authorize
-from flask import flash, request, url_for, render_template, g, redirect, session
-from threading import Lock
 
 lock = Lock()
 
@@ -20,9 +22,9 @@ def register_web_info():
                  INNER JOIN users ON periphery_entend_data.user_id = users.id
                  INNER JOIN periphery_entend ON periphery_entend_data.periphery_entend_id = periphery_entend.id
                  INNER JOIN register_mail ON periphery_entend_data.register_mail_id = register_mail.id
-                 WHERE users.id = %s;"""
+                  ;"""
         entries = []
-        if g.db.cursor.execute(sql, (session['user_name_id'],)):
+        if g.db.cursor.execute(sql):
             for row in g.db.cursor.fetchall():
                 entries.append(dict(username=row[0], password=row[1], register_website=row[2],
                                     register_website_username=row[3], register_website_password=row[4],
@@ -47,7 +49,6 @@ def register_web_info():
 
     sql = 'INSERT INTO periphery_entend(register_website, register_website_username, register_website_password)' \
           'VALUES (%s, %s, %s)'
-    print 1,sql %(web_site, username, password)
     # 处理并发数据出错问题
     lock.acquire()
     if g.db.cursor.execute(sql, (web_site, username, password)):
@@ -56,7 +57,6 @@ def register_web_info():
             register_web_id = g.db.cursor.fetchall()[0][0]
             sql = 'INSERT INTO periphery_entend_data (user_id, periphery_entend_id, register_mail_id, data_date) ' \
                   'VALUES (%d, %d, %d, now())' % (session['user_name_id'], register_web_id, register_mail_id)
-            print 2,sql
             if g.db.cursor.execute(sql):
                 flash(u'添加成功！')
                 g.db.commit()
