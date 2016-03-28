@@ -69,7 +69,7 @@ def article_records_file():
         str_data = [i.decode('gbk').split() for i in str_data]
         fail_data,success=write_sql(str_data)
     elif fileformat in ["xls", "xlsx", "XLS", "XLSX"]:
-        filepath = os.path.join(os.getcwd(),"cdms","static","upload",filename)
+        filepath = os.path.join(os.path.dirname(os.path.realpath(__file__)),"..","..","static","upload",filename)
         f.save(filepath)
         f=xlrd.open_workbook(filepath)
         os.remove(filepath)
