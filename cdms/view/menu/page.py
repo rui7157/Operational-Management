@@ -2,7 +2,7 @@
 
 from . import menu
 from . import authorize
-from flask import request, render_template, g, session
+from flask import request, render_template, g, session,abort
 
 try:
     import MySQLdb
@@ -17,6 +17,11 @@ def page():
     第一次取出一共有多少mysql数据
     更据Mysql取出来的数据 来分页
     """
+
+    #get参数检测
+
+
+
     # -- Sql 模板  --
     sql_base = """ SELECT users.username, post_info.post_title, post_info.post_address, post_info.post_date, post_info.id, post_info.examination
                 FROM users
@@ -26,11 +31,17 @@ def page():
     def sql_link(date_y, date_m, date_d, user_post_id):
         if date_y and date_m and date_d:
             # 更据年月日何用户ID 来获取所有数据总数
-            id = int(user_post_id)
+            if not all([date_y.isdigit(),date_m.isdigit(),date_d.isdigit(),user_post_id.isdigit()]):
+                #get参数检查,防止用户自己输入参数报错错误
+                abort(404)
+                id = int(user_post_id)
             sql = sql_base + ' AND YEAR(post_date)={1} AND MONTH(post_date)={2} AND DAY(post_date)={3};'
             sql = sql.format(id, int(date_y), int(date_m), int(date_d))
         elif user_post_id:
             # 按照用户请求ID   获取 数据总数
+            if not user_post_id.isdigit():
+                #get参数检查,防止用户自己输入参数报错错误
+                abort(404)
             id = int(user_post_id)
             sql = sql_base.format(id)
         else:
@@ -86,13 +97,13 @@ def page():
             is_exa_user = g.db.cursor.fetchall()[0][0]
 
     # 分页缩减
-    if len(paging_number) >6:
-        if paging_number.index(current)<3:
-            paging_number=paging_number[:6]
-        elif paging_number.index(current)>len(paging_number)-3:
-            paging_number=paging_number[-6:]
+    if len(paging_number) >10:
+        if paging_number.index(current)<5:
+            paging_number=paging_number[:10]
+        elif paging_number.index(current)>len(paging_number)-5:
+            paging_number=paging_number[-10:]
         else:
-            paging_number=paging_number[paging_number.index(current)-3:paging_number.index(current)+3]
+            paging_number=paging_number[paging_number.index(current)-5:paging_number.index(current)+6]
 
     return render_template('page.html', entries=entries, upper_page=current - 1,
                            next_page=current + 1, current_page=current, number=paging_number, max_list=max_list,

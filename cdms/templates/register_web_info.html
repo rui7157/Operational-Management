@@ -32,13 +32,13 @@
             </table>
             <table width="100%" border="0" id="oTable">
                 <tr>
-                    <th>网站地址</th>
-                    <th>网站用户名</th>
-                    <th>网站登录密码</th>
-                    <th>网站邮箱</th>
-                    <th>邮箱密码</th>
-                    <th>时间</th>
-                    <th>操作</th>
+                    <th width="25%">网站地址</th>
+                    <th width="10%">网站用户名</th>
+                    <th width="10%">网站登录密码</th>
+                    <th width="15%">网站邮箱</th>
+                    <th width="10%">邮箱密码</th>
+                    <th width="15%">时间</th>
+                    <th width="15%">操作</th>
                 </tr>
                 {% for entry in entries %}
                     <tr>
@@ -61,6 +61,45 @@
                     </tr>
                 {% endfor %}
             </table>
+
         </form>
+    <div class="page">
+        <ul class="pagination pagination-sm" id="pagination">
+            <li id="first"><a href="{{ url_for('menu.register_web_info', page=1) }}">首页</a></li>
+            <li id="last"><a href="{{ url_for('menu.register_web_info', page=page-1)}}">&laquo;</a></li>
+                {%- for page in page_num %}
+                    <li><a href="{{ url_for('menu.register_web_info', page=page) }}">{{ page }}</a></li>
+                {% endfor -%}
+            <li id="next"><a href="{{ url_for('menu.register_web_info', page=page+1)}}">&raquo;</a></li>
+            <li id="end">
+                <a href="{{ url_for('menu.register_web_info',page=max_page)}}">尾页</a>
+            </li>
+
+        </ul>
     </div>
+    <script>
+        var current_page=$($("#pagination li")[{{page+1}}]);
+        current_page.addClass("thisclass");
+        if ({{ page }}<6){
+            $("#pagination li:gt(12)").hide();
+        }else if ({{ page }}>{{ page_num }}.length-6){
+            var temp={{ max_page-8 }};
+            $("#pagination li:lt("+{{ max_page-9 }}+")").hide();
+        }else{
+{#            console.log($("#pagination li:lt("+{{page-4}}+"),#pagination li:gt("+{{page+5}}+")"));#}
+            $("#pagination li:lt("+{{page-4}}+"),#pagination li:gt("+{{page+6}}+")").hide();
+        }
+        $("#first,#end").show();
+        if ({{ page }}==1){
+            $("#last").hide();
+        }else{
+            $("#last").show();
+        }
+        if ({{ page }}== {{ page_num }}.length){
+            $("#next").hide();
+        }else{
+            $("#next").show();
+        }
+    </script>
+</div>
 {% endblock -%}

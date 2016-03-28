@@ -14,6 +14,11 @@ lock = Lock()
 def register_web_info():
     # 注册网站信息
     if request.method == 'GET':
+        page=request.args.get("page","")
+        if not page.isdigit():
+            page=1
+        else:
+            page=int(page)
         sql = """ SELECT users.username, users.password, periphery_entend.register_website,
                  periphery_entend.register_website_username, periphery_entend.register_website_password,
                  register_mail.mail_username, register_mail.mail_password, periphery_entend_data.data_date,
@@ -21,18 +26,23 @@ def register_web_info():
                  FROM periphery_entend_data
                  INNER JOIN users ON periphery_entend_data.user_id = users.id
                  INNER JOIN periphery_entend ON periphery_entend_data.periphery_entend_id = periphery_entend.id
-                 INNER JOIN register_mail ON periphery_entend_data.register_mail_id = register_mail.id
-                  ;"""
+                 INNER JOIN register_mail ON periphery_entend_data.register_mail_id = register_mail.id ORDER BY data_date DESC LIMIT {f},{e};"""
+
         entries = []
-        if g.db.cursor.execute(sql):
+        if g.db.cursor.execute(sql.format(f=(page-1)*20,e=page*20)):
             for row in g.db.cursor.fetchall():
                 entries.append(dict(username=row[0], password=row[1], register_website=row[2],
                                     register_website_username=row[3], register_website_password=row[4],
                                     mail_username=row[5], mail_password=row[6], data_date=row[7], id=row[8],
-                                    key=hash(str(row[8])), periphery_entend_id=row[9]
-                                    ))
+                                    key=hash(str(row[8])), periphery_entend_id=row[9]))
 
-        return render_template('register_web_info.html', entries=entries)
+        sql="""SELECT COUNT(*) FROM periphery_entend;"""
+        if g.db.cursor.execute(sql):
+            page_num = g.db.cursor.fetchall()[0][0]
+        page_num=range(1,page_num // 20+1 if not page_num % 20 else page_num // 20+2 )
+        max_page=len(page_num)
+        return render_template('register_web_info.html', entries=entries,page=page,page_num=page_num,max_page=max_page)
+
 
     web_site = request.form['web_site']
     username = request.form['username']
