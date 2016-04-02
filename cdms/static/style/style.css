@@ -986,3 +986,21 @@ span[status="noexa"]{
   }
 }
 
+/*----------自定义bootstrap---------------*/
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+
+.div_from_aoto {
+    line-height: 15px;
+}
+.div_from_aoto input {
+    height: 20px;
+    line-height: 20px;
+    width: 250px;
+}
+.small-table tbody td{
+    padding: 2px;
+}

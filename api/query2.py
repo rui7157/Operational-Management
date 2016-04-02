@@ -64,7 +64,7 @@ def baidu_query_api(urls, key, page=5):
     """
 
     baidu_urls = []
-    html = get_HTML_code(key)
+    html  = get_HTML_code(key)
     baidu_page_address = baidu_page(html, page)
     baidu_urls += [get_baidu_all_url(html)]
     for page_address in baidu_page_address:

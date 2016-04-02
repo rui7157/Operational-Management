@@ -85,4 +85,4 @@ def article_records_file():
         flash("成功{success}条，失败的条目：{fail}".format(success=success,fail=str(fail_data)))
     else:
         flash("成功上传所有条目{}条！".format(success))
-    return redirect(url_for("menu.article_records"))  #
+    return redirect(url_for("menu.article_records"))

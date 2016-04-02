@@ -302,7 +302,6 @@ $(function () {
             }
         });
     }
-
     $("#query-btn").click(function () {
         post_content();
     });

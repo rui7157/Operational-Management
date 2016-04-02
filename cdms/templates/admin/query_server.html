@@ -1,0 +1,46 @@
+{% extends "admin/admin_base.html" %}
+
+{% block route %}
+
+    <a href="#">查询服务器</a>
+
+{% endblock %}
+
+{% block content %}
+    <table class="table table-bordered table-hover small-table" id="server">
+{#   <caption>服务器查询</caption>#}
+   <thead>
+      <tr>
+         <th>提供商</th>
+         <th>账号</th>
+         <th>密码</th>
+          <th>IP</th>
+          <th>内网IP</th>
+          <th>root权限</th>
+          <th>登陆路径</th>
+          <th>FTP权限</th>
+{#          <th>SQL地址</th>#}
+{#          <th>SQL账户</th>#}
+{#          <th>SQL密码</th>#}
+          <th>附加IP</th>
+          <th>价格</th>
+          <th>购买日期</th>
+          <th>到期日期</th>
+      </tr>
+   </thead>
+   <tbody>
+   {% for row in data %}
+       <tr>
+       {% for col in row %}
+
+           {% if not col %}
+                <td> 无</td>
+           {% else %}
+           <td> {{col}}</td>
+            {% endif %}
+       {% endfor %}
+       </tr>
+   {% endfor %}
+   </tbody>
+</table>
+{% endblock %}

@@ -56,3 +56,31 @@ def post_count_data(exa_user, group):
         count = user_info(row)
         entries.append(dict(id=row[0], username=row[1], count=count))
     return entries
+
+
+def generate_sql(data,method,*sid):
+    keys,values="",""
+    if method=="add":
+        for k,v in data.items():
+            if v:
+                if keys:
+                    keys+=",`"+k+"`"
+                else:
+                    keys+="`"+k+"`"
+                if values:
+                    if k in ["price"]:
+                        values+=","+v
+                    else:
+                        values+=",'"+v+"'"
+                else:
+                        values+="'"+v+"'"
+        return "INSERT INTO server ({keys}) VALUE ({values});".format(keys=keys,values=values)
+
+    elif method=="modify":
+        # data.pop("sid")
+        temp = filter(lambda v:True if not(v[1] in ["无",""] or  v[0] in ["sid"]) else False,[(k,v) for k,v in data.items()])
+        print temp
+        set_data=",".join(["`"+k+"`"+"="+v  if k in ["price"] else "`"+k+"`"+"="+"'"+v+"'" for k,v in temp])
+        return "UPDATE server SET {set_data} WHERE id={sid};".format(set_data=set_data,sid=sid[0])
+    else:
+        raise ValueError,method

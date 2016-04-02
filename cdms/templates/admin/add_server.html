@@ -1,0 +1,102 @@
+{% extends "admin/admin_base.html" %}
+
+{% block route %}
+
+    <a href="#">添加服务器</a>
+
+{% endblock %}
+
+{% block content %}
+    <div class="div_from_aoto">
+        <form action="{{ url_for('adm.add_server') }}" method="POST" class="form-horizontal" role="form">
+            <div class="form-group">
+                <label class="control-label col-sm-2">*提供商: </label>
+                <div class="col-sm-5"><input type="text" name="server_name" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">*账号: </label>
+                <div class="col-sm-5"><input type="text" name="server_account" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">*密码: </label>
+                <div class="col-sm-5"><input type="text" name="server_password" class="form-control" placeholder="请输入数据"/>
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">主IP: </label>
+                <div class="col-sm-5"><input type="text" name="server_ip" class="form-control" placeholder="请输入数据"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">内网IP: </label>
+                <div class="col-sm-5"><input type="text" name="server_lan_ip" class="form-control" placeholder="请输入数据"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">ROOT权限: </label>
+                <div class="col-sm-5"><input type="text" name="root_auth" class="form-control" placeholder="请输入数据"/>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">*登陆地址: </label>
+                <div class="col-sm-5"><input type="text" name="login_path" class="form-control" placeholder="请输入数据"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">FTP权限: </label>
+                <div class="col-sm-5"><input type="text" name="ftp_auth" class="form-control" placeholder="请输入数据"/>
+                </div>
+            </div>
+{#            <div class="form-group">#}
+{#                <label class="control-label col-sm-2">数据库地址: </label>#}
+{#                <div class="col-sm-5"><input type="text" name="sql_host" class="form-control" placeholder="请输入数据"/>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="form-group">#}
+{#                <label class="control-label col-sm-2">数据库账号: </label>#}
+{#                <div class="col-sm-5"><input type="text" name="sql_user" class="form-control" placeholder="请输入数据"/>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="form-group">#}
+{#                <label class="control-label col-sm-2">数据库密码: </label>#}
+{#                <div class="col-sm-5"><input type="text" name="sql_password" class="form-control" placeholder="请输入数据"/>#}
+{#                </div>#}
+{#            </div>#}
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">额外IP: </label>
+                <div class="col-sm-5"><input type="text" name="ip_ext" class="form-control" placeholder="请输入数据"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">价格: </label>
+                <div class="col-sm-5"><input type="text" name="price" class="form-control" placeholder="请输入数据"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">购买时间: </label>
+                <div class="col-sm-5"><input type="text" name="start_time" value="2016-01-01" class="form-control datetimepicker" id="datetimepicker"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">到期时间: </label>
+                <div class="col-sm-5"><input type="text" name="end_time" value="2016-01-01" class="form-control datetimepicker" id="datetimepicker"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-10">
+                    <button type="submit" class="btn">确认添加</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+{% endblock %}

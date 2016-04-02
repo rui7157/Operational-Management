@@ -38,6 +38,50 @@
     };
 })(jQuery);
 
+function date_count(bng,end){
+    //时间计算函数
+
+    var bngDate = new Date(bng.substr(0,4),bng.substr(5,2),bng.substr(8,2));
+    var endDate = new Date(end.substr(0,4),end.substr(5,2)-1,end.substr(8,2));
+    var days = (endDate.getTime()-bngDate.getTime())/24/60/60/1000;
+    return days;
+}
+
+function formatDate(date, format) {
+    //日期格式化
+    if (!date) return;
+    if (!format) format = "yyyy-MM-dd";
+    switch(typeof date) {
+        case "string":
+            date = new Date(Date.parse(date.replace(/-/g, "/")));
+            break;
+        case "number":
+            date = new Date(date);
+            break;
+    }
+    if (!date instanceof Date) return;
+    var dict = {
+        "yyyy": date.getFullYear(),
+        "M": date.getMonth() + 1,
+        "d": date.getDate(),
+        "H": date.getHours(),
+        "m": date.getMinutes(),
+        "s": date.getSeconds(),
+        "MM": ("" + (date.getMonth() + 101)).substr(1),
+        "dd": ("" + (date.getDate() + 100)).substr(1),
+        "HH": ("" + (date.getHours() + 100)).substr(1),
+        "mm": ("" + (date.getMinutes() + 100)).substr(1),
+        "ss": ("" + (date.getSeconds() + 100)).substr(1)
+    };
+    return format.replace(/(yyyy|MM?|dd?|HH?|ss?|mm?)/g, function() {
+        return dict[arguments[0]];
+    });
+}
+
+
+
+
+
 $(function(){
         //展开菜单
     $('#menu').tendina({
@@ -77,4 +121,102 @@ $(function(){
             }
         }
     });
+
+    //时间选择
+
+    $('.datetimepicker').datetimepicker({
+        minView: "month", //选择日期后，不会再跳转去选择时分秒
+    　　 format: "yyyy-mm-dd", //选择日期后，文本框显示的日期格式
+    　　 language: 'zh-CN', //汉化
+        todayBtn: true,
+    　　 autoclose:true //选择日期后自动关闭
+    });
+
+
+    for (var i=1;i<$("#server tr").length;i++){
+        var date=$($($("#server tr")[i]).children()[11]).text();
+        var d=new Date();
+        var current_date=formatDate(d.getFullYear()+"-"+d.getMonth()+"-"+ d.getDate(), "yyyy-MM-dd");
+        var rem_day=date_count(current_date,date.replace(/(^\s*)|(\s*$)/g,''));
+        if (rem_day<3){
+            $($("#server tr")[i]).addClass("danger");
+        }else if(rem_day<7){
+            $($("#server tr")[i]).addClass("warning");
+        }else{
+            $($("#server tr")[i]).addClass("active");
+        };
+}
+
+    $(function () {
+    //找到所有名字的单元格
+    var name = $("#tbody td:even");
+    //给这些单元格注册鼠标点击事件
+    $("#tbody td").click(function () {
+        var currentTr=$(this).parent();
+        if ($(this).has("a").length > 0){
+            var sid=$(this).parent().attr("sid");
+            $.post("/admin/delete_server",{"sid":sid},function(resulth){
+                if (resulth=="success"){
+                    console.log(currentTr);
+                    currentTr.hide("slow");
+                }else{
+                    alert("删除失败!")
+                }
+            })
+        }else{
+        //找到当前鼠标单击的td
+        var tdObj = $(this);
+        //保存原来的文本
+        var oldText = $(this).text();
+        //创建一个文本框
+        var inputObj = $("<input type='text' value='" + oldText + "'/>");
+        //去掉文本框的边框
+        inputObj.css("border-width", 0);
+        inputObj.click(function () {
+            return false;
+        });
+        //使文本框的宽度和td的宽度相同
+        inputObj.width(tdObj.width());
+        inputObj.height(tdObj.height());
+        //去掉文本框的外边距
+        inputObj.css("margin", 0);
+        inputObj.css("padding", 0);
+        inputObj.css("text-align", "center");
+        inputObj.css("font-size", "16px");
+        inputObj.css("background-color", tdObj.css("background-color"));
+        //把文本框放到td中
+        tdObj.html(inputObj);
+        //文本框失去焦点的时候变为文本
+        inputObj.blur(function () {
+            var newText = $(this).val();
+            tdObj.html(newText);
+            var trSid=tdObj.parent().attr("sid");
+            var tdText = tdObj.parent().children();
+            data={
+                "sid":trSid,
+                "server_name":tdText[0].innerText,
+                "server_account":tdText[1].innerText,
+                "server_password":tdText[2].innerText,
+                "server_ip":tdText[3].innerText,
+                "server_lan_ip":tdText[4].innerText,
+                "root_path":tdText[5].innerText,
+                "login_path":tdText[6].innerText,
+                "ftp_auth":tdText[7].innerText,
+                "ip_ext":tdText[8].innerText,
+                "price":tdText[9].innerText,
+                "start_time":tdText[10].innerText,
+                "end_time":tdText[11].innerText
+            };
+            $.post("/admin/modify_server",data,function(sulth){
+                if (sulth=="fail"){
+                    alert("修改失败");
+                }
+            });
+        });
+        //全选
+          inputObj.trigger("focus").trigger("select");}
+    });
+});
+
+
 });

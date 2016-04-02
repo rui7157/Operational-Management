@@ -1,8 +1,5 @@
 # -*- coding: utf-8
 
-
-# -*- coding: utf-8
-
 from . import adm
 from cdms.view.wrapper import authorize
 from flask import flash, request, url_for, render_template, g, redirect, session, abort

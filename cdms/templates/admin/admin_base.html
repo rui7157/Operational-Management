@@ -10,11 +10,16 @@
         <title>{% block title %}成都美世后台管理系统-品牌部{% endblock %}</title>
         <link rel="stylesheet" href="{{ url_for('static',filename='style/adminstyle.css') }}" type="text/css"
               media="screen">
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style/bootstrap.min.css') }}"/>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style/bootstrap.css') }}"/>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style/bootstrap-datetimepicker.css') }}"/>
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style/flavr.css') }}"/>
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style/style.css') }}"/>
+
+
         <script type="text/javascript" src="{{ url_for('static',filename='js/jquery-1.8.3.min.js') }}"></script>
         <script type="text/javascript" src="{{ url_for('static', filename='js/flavr.min.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap-datetimepicker.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap-datetimepicker.zh-CN.js') }}"></script>
         <script type="text/javascript" src="{{ url_for('static',filename='js/tendina.js') }}"></script>
         <script type="text/javascript" src="{{ url_for('static',filename='js/common.js') }}"></script>
     {% endblock -%}
@@ -30,15 +35,15 @@
         </div>
         <div id="ad_setting" class="ad_setting">
             <a class="ad_setting_a" href="javascript:;">
-                <i class="icon-user glyph-icon" style="font-size: 20px"></i>
+                <i class="glyphicon glyphicon-user"></i>
                 <span>{{ session.get('username') }}</span>
-                <i class="icon-chevron-down glyph-icon"></i>
+                <i class=" 	glyphicon glyphicon-chevron-down"></i>
             </a>
             <ul class="dropdown-menu-uu" id="ad_setting_ul">
-                <li class="ad_setting_ul_li"><a href="javascript:;"><i class="icon-user glyph-icon"></i> 个人中心 </a></li>
-                <li class="ad_setting_ul_li"><a href="javascript:;"><i class="icon-cog glyph-icon"></i> 设置 </a></li>
+                <li class="ad_setting_ul_li"><a href="javascript:;"><i class="glyphicon glyphicon-user"></i> 个人中心 </a></li>
+                <li class="ad_setting_ul_li"><a href="javascript:;"><i class="glyphicon glyphicon-cog"></i> 设置 </a></li>
                 <li class="ad_setting_ul_li"><a href="{{ url_for('menu.logout') }}"><i
-                        class="icon-signout glyph-icon"></i> <span class="font-bold">退出</span> </a></li>
+                        class="glyphicon glyphicon-log-out"></i> <span class="font-bold">退出</span> </a></li>
             </ul>
         </div>
     </div>
@@ -47,47 +52,46 @@
     <div class="layout_left_menu">
         <ul class="tendina" id="menu">
             <li class="childUlLi">
-                <a href="#" {#target="menuFrame"#}><i class="glyph-icon icon-home"></i>首页</a>
+                <a href="#" {#target="menuFrame"#}><i class="glyphicon glyphicon-home"></i>首页</a>
                 <ul style="display: none;">
-                    <li><a href="#" {#target="menuFrame"#}><i class="glyph-icon icon-chevron-right"></i>用户添加</a></li>
+                    <li><a href="#" {#target="menuFrame"#}><i class="glyphicon glyphicon-chevron-right"></i>用户添加</a></li>
                 </ul>
             </li>
             {%- if session.get('exa_user') >0 %}
                 <li class="childUlLi">
-                    <a href="#" {#target="menuFrame"#}> <i class="glyph-icon icon-reorder"></i>成员管理</a>
+                    <a href="#" {#target="menuFrame"#}> <i class="glyphicon glyphicon-th-list"></i>成员管理</a>
                     <ul style="display: none;">
-                        <li><a href="{{ url_for('adm.add_member') }}"><i class="glyph-icon icon-chevron-right"></i>添加用户</a>
+                        <li><a href="{{ url_for('adm.add_member') }}"><i class="glyphicon glyphicon-chevron-right"></i>添加用户</a>
                         </li>
-                        <li><a href="#"><i class="glyph-icon icon-chevron-right"></i>删除用户</a></li>
-                        <li><a href="#"><i class="glyph-icon icon-chevron-right"></i>成员管理</a></li>
+                        <li><a href="#"><i class="glyphicon glyphicon-chevron-right"></i>删除用户</a></li>
+                        <li><a href="#"><i class="glyphicon glyphicon-chevron-right"></i>成员管理</a></li>
                     </ul>
                 </li>
             {% endif -%}
             <li class="childUlLi">
-                <a href="#" {#target="menuFrame"#}> <i class="glyph-icon icon-user"></i>角色管理</a>
+                <a href="#" {#target="menuFrame"#}> <i class="glyphicon glyphicon-user"></i>角色管理</a>
                 <ul style="display: none;">
-                    <li><a href="{{ url_for('adm.modify_password') }}"><i class="glyph-icon icon-chevron-right"></i>修改密码</a>
+                    <li><a href="{{ url_for('adm.modify_password') }}"><i class="glyphicon glyphicon-chevron-right"></i>修改密码</a>
                     </li>
-                    <li><a href="#"><i class="glyph-icon icon-chevron-right"></i>帮助</a></li>
+                    <li><a href="#"><i class="glyphicon glyphicon-chevron-right"></i>帮助</a></li>
                 </ul>
             </li>
-{#            <li class="childUlLi">#}
-{#                <a href="#"> <i class="glyph-icon  icon-location-arrow"></i>菜单管理</a>#}
-{#                <ul style="display: none;">#}
-{#                    <li><a href="#" ><i class="glyph-icon icon-chevron-right"></i>贴子管理</a></li>#}
-{#                    <li><a href="#" ><i class="glyph-icon icon-chevron-right"></i>批量删除</a></li>#}
-{#                </ul>#}
-{#            </li>#}
+            <li class="childUlLi">
+                <a href="#"> <i class="glyphicon  glyphicon-cloud"></i>服务器管理</a>
+                <ul style="display: none;">
+                    <li><a href="{{ url_for('adm.add_server') }}" ><i class="glyphicon glyphicon-chevron-right"></i>添加服务器</a></li>
+                    <li><a href="{{ url_for('adm.query_server') }}" ><i class="glyphicon glyphicon-chevron-right"></i>查询服务器</a></li>
+                    <li><a href="{{ url_for('adm.modify_server') }}" ><i class="glyphicon glyphicon-chevron-right"></i>信息修改</a></li>
+                </ul>
+            </li>
         </ul>
     </div>
     <!--菜单-->{% endblock %}
 <div id="layout_right_content" class="layout_right_content">
-
-
     <div class="mian_content">
         <div class="route_bg">
             <a href="{{ url_for('adm.admin') }}">管理首页</a>
-            <i class="glyph-icon icon-chevron-right"></i>
+            <i class="glyphicon glyphicon-chevron-right"></i>
             {%- block route %}
             {% endblock -%}
         </div>
