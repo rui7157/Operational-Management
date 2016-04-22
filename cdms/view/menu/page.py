@@ -34,7 +34,7 @@ def page():
             if not all([date_y.isdigit(),date_m.isdigit(),date_d.isdigit(),user_post_id.isdigit()]):
                 #get参数检查,防止用户自己输入参数报错错误
                 abort(404)
-                id = int(user_post_id)
+            id = int(user_post_id)
             sql = sql_base + ' AND YEAR(post_date)={1} AND MONTH(post_date)={2} AND DAY(post_date)={3};'
             sql = sql.format(id, int(date_y), int(date_m), int(date_d))
         elif user_post_id:

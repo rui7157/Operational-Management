@@ -79,8 +79,9 @@ def generate_sql(data,method,*sid):
     elif method=="modify":
         # data.pop("sid")
         temp = filter(lambda v:True if not(v[1] in ["无",""] or  v[0] in ["sid"]) else False,[(k,v) for k,v in data.items()])
-        print temp
         set_data=",".join(["`"+k+"`"+"="+v  if k in ["price"] else "`"+k+"`"+"="+"'"+v+"'" for k,v in temp])
+        print "UPDATE server SET {set_data} WHERE id={sid};".format(set_data=set_data,sid=sid[0])
         return "UPDATE server SET {set_data} WHERE id={sid};".format(set_data=set_data,sid=sid[0])
     else:
         raise ValueError,method
+

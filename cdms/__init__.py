@@ -5,7 +5,7 @@
 import functools
 import thread
 from flask import Flask, flash, request, url_for, render_template, g, redirect, session
-
+from flask.ext.mail import Mail
 import sys
 
 reload(sys)
@@ -21,18 +21,20 @@ sys.setdefaultencoding('utf-8')
 lock = thread.allocate_lock()
 
 from flask import Flask
-
-from view.tool import tool
-from view.menu import menu
-from view.other import other
-from view.admin import adm
 from config import config
 
-app = Flask(__name__)
 
+app = Flask(__name__)
+mail=Mail()
 
 def create_app(config_name):
+    from view.tool import tool
+    from view.menu import menu
+    from view.other import other
+    from view.admin import adm
+
     app.config.from_object(config[config_name])
+    mail.init_app(app)
     app.secret_key = app.config["SECRET_KEY"]
     app.register_blueprint(menu)
     app.register_blueprint(tool)
@@ -51,7 +53,7 @@ except Exception:
 @app.before_request
 def before_request():
     """ 在请求前 建立数据库连接 """
-    g.db = MySQLdb.connect(host=app.config['HOST'], user=app.config['USER'], db=app.config['DB'],
+    g.db = MySQLdb.connect(host=app.config['SQL_HOST'], user=app.config['USER'], db=app.config['DB'],
                            charset=app.config['CHARSET'])
     g.db.cursor = g.db.cursor()
 

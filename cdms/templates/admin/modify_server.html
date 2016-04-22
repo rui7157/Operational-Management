@@ -7,42 +7,45 @@
 {% endblock %}
 
 {% block content %}
-<table class="table table-bordered table-hover" id="server">
-{#   <caption>服务器查询</caption>#}
-   <thead>
-      <tr>
-         <th>提供商</th>
-         <th>账号</th>
-         <th>密码</th>
-          <th>IP</th>
-          <th>内网IP</th>
-          <th>root权限</th>
-          <th>登陆路径</th>
-          <th>FTP权限</th>
-{#          <th>SQL地址</th>#}
-{#          <th>SQL账户</th>#}
-{#          <th>SQL密码</th>#}
-          <th>附加IP</th>
-          <th>价格</th>
-          <th>购买日期</th>
-          <th>到期日期</th>
-          <th>操作</th>
-      </tr>
-   </thead>
-   <tbody id="tbody">
-   {% for row in data %}
-       <tr sid="{{ row[0] }}">
-       {% for col in row[1:] %}
-           {% if not col%}
-                <td> 无</td>
-           {% else %}
-           <td> {{col}}</td>
-            {% endif %}
-       {% endfor %}
-       <td><a href="#" class="btn">删除</a></td>
-       </tr>
-   {% endfor %}
-   </tbody>
-</table>
+    <table class="table table-bordered table-hover" id="server">
+        {#   <caption>服务器查询</caption>#}
+        <thead>
+        <tr>
+            <th>备注</th>
+            <th>提供商</th>
+            <th>账号</th>
+            <th>密码</th>
+            <th>IP</th>
+            <th>内网IP</th>
+            <th>root权限</th>
+            <th>登陆路径</th>
+            <th>FTP权限</th>
+            {#          <th>SQL地址</th>#}
+            {#          <th>SQL账户</th>#}
+            {#          <th>SQL密码</th>#}
+            <th>附加IP</th>
+            <th>价格</th>
+            <th>购买日期</th>
+            <th>到期日期</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody id="tbody">
+        {% for row in data %}
+            <tr sid="{{ row[0] }}">
+                {% for col in row[1:] %}
+                    {% if not col %}
+                        <td> 无</td>
+                    {% else %}
+                        <td> {{ col }}</td>
+                    {% endif %}
+                {% endfor %}
+                <td><a href="#" class="table_btn delbtn"><i class="glyphicon glyphicon-trash"></i>删除</a> <a
+                        class="table_btn add_application" href="#" target="_blank"><i
+                        class="glyphicon glyphicon-plus"></i>添加</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
 {% endblock %}

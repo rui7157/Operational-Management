@@ -1,0 +1,48 @@
+{% extends "admin/admin_base.html" %}
+
+{% block route %}
+    <a href="{{ url_for('adm.modify_server') }}">信息修改</a><i class="glyphicon glyphicon-chevron-right"></i>
+    <a href="#">添加站点</a>
+{% endblock %}
+
+{% block content %}
+    {# `id`,`application`,`server_name`,`server_account`,`server_password`,`server_ip`,
+    `server_lan_ip`,`root_auth`,`login_path`,`ftp_auth`,`ip_ext`,`price`,DATE_FORMAT(`start_time`,'%Y-%m-%d'),
+    DATE_FORMAT(`end_time`,'%Y-%m-%d') #}
+    {#    <br>#}
+    <sid sid="{{ server_data[0] }}"></sid>
+    <div class="well well-sm"><p><span
+            class="label label-primary"><strong>服务器：</strong></span><strong>{{ server_data[1] }}</strong></p>
+        提供商：{{ server_data[2] }} | 账号：{{ server_data[3] }} | 密码：{{ server_data[4] }} | IP：{{ server_data[5] }} |
+        内网IP：{{ server_data[6] }} | root权限：{{ server_data[7] }} | 登陆路径：{{ server_data[8] }} | FTP权限：{{ server_data[9] }}
+        | 附加IP：{{ server_data[10] }} | 价格：{{ server_data[11] }}￥ | 购买日期：{{ server_data[12] }} |
+        到期日期：{{ server_data[13] }}</div>
+    <form action='add_application' method='post'>
+        <table class="table table-bordered table-hover small-table" id="add_site">
+            <thead>
+            <tr>
+                <th>服务器IP</th>
+                <th>名字</th>
+                <th>域名</th>
+                <th>其他</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for row in data %}
+                <tr>
+                    {% for col in row[1:] %}
+                        {% if not col %}
+                            <td> 无</td>
+                        {% else %}
+                            <td> {{ col }}</td>
+                        {% endif %}
+                    {% endfor %}
+                    <td><a wid='{{ row[0] }}' class="table_btn del_site">删除</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </form>
+    <a class="btn" id="add_application"><i class="glyphicon glyphicon-plus"></i>添加</a>
+{% endblock %}
