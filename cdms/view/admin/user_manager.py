@@ -8,6 +8,7 @@ from flask import flash, request, url_for, render_template, g, redirect, session
 @adm.route("/modify_password", methods=["GET", "POST"])
 @authorize
 def modify_password():
+    #修改密码
     if request.method == "POST":
         current_user_id = session.get('user_name_id')
         old_pwd = request.form['old_pwd']

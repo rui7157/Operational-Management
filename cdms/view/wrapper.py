@@ -59,6 +59,7 @@ def post_count_data(exa_user, group):
 
 
 def generate_sql(data,method,*sid):
+    #SQL语句生成
     keys,values="",""
     if method=="add":
         for k,v in data.items():

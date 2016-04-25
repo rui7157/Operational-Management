@@ -8,7 +8,7 @@ import pygal
 @adm.route("/")
 @authorize
 def admin():
-
+    #管理主页
     """
     line_chart = pygal.Bar()
     line_chart.title = 'Browser usage evolution (in %)'

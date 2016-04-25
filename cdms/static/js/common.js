@@ -235,7 +235,7 @@ $(function () {
     });
 
     $(".del_site").click(function () {
-        var current_tr=$(this).parent().parent();
+        var current_tr = $(this).parent().parent();
         $.post("delete_site", {"wid": $(this).attr("wid")}, function (result) {
             if (result == "success") {
 
@@ -243,7 +243,10 @@ $(function () {
             }
         })
 
-    })
+    });
 
-
+    $("#query_server tr").dblclick(function(){
+        var sid=$(this).attr("sid");
+        window.open('query_site?&sid='+sid,'newwindow','height=500,width=720, top=300,left=500,toolbar=no,menubar=no,scrollbars=yes, resizable=no,location=no, status=no');
+    });
 });

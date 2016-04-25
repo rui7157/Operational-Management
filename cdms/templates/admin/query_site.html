@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+
+<head>
+    {%- block head %}
+
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>{% block title %}成都美世后台管理系统-品牌部{% endblock %}</title>
+        <link rel="stylesheet" href="{{ url_for('static',filename='style/adminstyle.css') }}" type="text/css"
+              media="screen">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style/bootstrap.css') }}"/>
+        <link rel="stylesheet" type="text/css"
+              href="{{ url_for('static', filename='style/bootstrap-datetimepicker.css') }}"/>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style/flavr.css') }}"/>
+{#        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style/style.css') }}"/>#}
+
+
+        <script type="text/javascript" src="{{ url_for('static',filename='js/jquery-1.8.3.min.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/flavr.min.js') }}"></script>
+        <script type="text/javascript"
+                src="{{ url_for('static', filename='js/bootstrap-datetimepicker.js') }}"></script>
+        <script type="text/javascript"
+                src="{{ url_for('static', filename='js/bootstrap-datetimepicker.zh-CN.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static',filename='js/tendina.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static',filename='js/common.js') }}"></script>
+    {% endblock -%}
+</head>
+<body>
+{% if server_data %}
+<div class="well well-sm"><p><span
+        class="label label-primary"><strong>服务器：</strong></span><strong>{{ server_data[1] }}</strong></p>
+    提供商：{{ server_data[2] }} | 账号：{{ server_data[3] }} | 密码：{{ server_data[4] }} | IP：{{ server_data[5] }} |
+    内网IP：{{ server_data[6] }} | root权限：{{ server_data[7] }} | 登陆路径：{{ server_data[8] }} | FTP权限：{{ server_data[9] }}
+    | 附加IP：{{ server_data[10] }} | 价格：{{ server_data[11] }}￥ | 购买日期：{{ server_data[12] }} |
+    到期日期：{{ server_data[13] }}</div>
+{% endif %}
+    <table class="table table-bordered table-hover small-table" id="add_site">
+        <thead>
+        <tr>
+            <th>服务器IP</th>
+            <th>名字</th>
+            <th>域名</th>
+            <th>网站备案</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for row in data %}
+            <tr>
+                {% for col in row[1:] %}
+                    {% if not col %}
+                        <td> 无</td>
+                    {% else %}
+                        <td>{{ col }}</td>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

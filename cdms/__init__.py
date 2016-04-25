@@ -4,8 +4,7 @@
 
 import functools
 import thread
-from flask import Flask, flash, request, url_for, render_template, g, redirect, session
-from flask.ext.mail import Mail
+from flask import g
 import sys
 
 reload(sys)
@@ -25,7 +24,6 @@ from config import config
 
 
 app = Flask(__name__)
-mail=Mail()
 
 def create_app(config_name):
     from view.tool import tool
@@ -34,7 +32,6 @@ def create_app(config_name):
     from view.admin import adm
 
     app.config.from_object(config[config_name])
-    mail.init_app(app)
     app.secret_key = app.config["SECRET_KEY"]
     app.register_blueprint(menu)
     app.register_blueprint(tool)

@@ -94,6 +94,7 @@ def register_web_info_delete():
 @menu.route("/register_web_info_set", methods=["POST"])
 @authorize
 def register_web_info_set():
+    #注册网页信息
     periphery_entend_id = request.form["periphery_entend_id"]
     # periphery_entend网址ID
     sql = """UPDATE periphery_entend SET periphery_entend.register_website ='{}',

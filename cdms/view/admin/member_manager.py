@@ -2,7 +2,7 @@
 
 from . import adm
 from cdms.view.wrapper import authorize
-from flask import flash, request, url_for, render_template, g, redirect, session, abort
+from flask import flash, request, url_for, render_template, g, redirect
 
 
 @adm.route("/add_member", methods=["GET", "POST"])

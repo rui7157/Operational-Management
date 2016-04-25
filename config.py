@@ -6,11 +6,7 @@ class MainConfig(object):
     USER='root'
     DB='cdms'
     CHARSET='utf8'
-    ESMTP="smtp.163.com"
-    MAIL_SERVER="smtp.163.com"
-    MAIL_USERNAME="goodrui@163.com"
-    MAIL_PASSWORD="13733431563"
-    MAIL_DEFAULT_SENDER="goodrui@163.com"
+
 
 
 class TestDev():

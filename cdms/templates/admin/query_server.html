@@ -2,8 +2,18 @@
 
 {% block route %}
     <a href="#">查询服务器</a>
+        <form action="{{ url_for('adm.search_site') }}"  target="_blank" method="post" style=" margin-top: -4px;" class="navbar-form navbar-right" role="search">
+            <div class="form-group">
+                <input type="text" name="text" class="form-control sm" placeholder="输入名称">
+            </div>
+            <button type="submit" class="table_btn">搜索</button>
+        </form>
+
+
+
 {% endblock %}
 {% block content %}
+
     <table class="table table-bordered table-hover small-table" id="server">
         <thead>
         <tr>
@@ -25,10 +35,10 @@
             <th>到期日期</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody id="query_server">
         {% for row in data %}
-            <tr>
-                {% for col in row %}
+            <tr sid="{{ row[0] }}">
+                {% for col in row[1:] %}
                     {% if not col %}
                         <td> 无</td>
                     {% else %}

@@ -1009,9 +1009,9 @@ span[status="noexa"]{
 .table_btn {
     background-color: #de2e31;
     color: #fff;
-      -moz-user-select: none;
+    -moz-user-select: none;
     background-image: none;
-    border: 1px solid transparent;
+    border: 2px solid transparent;
     border-radius: 2px;
     cursor: pointer;
     display: inline-block;
@@ -1021,4 +1021,7 @@ span[status="noexa"]{
     vertical-align: middle;
     white-space: nowrap;
     margin: 0 4px;
+}
+.sm{
+    height: 12px;
 }
