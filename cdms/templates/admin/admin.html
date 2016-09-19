@@ -1,18 +1,43 @@
 {% extends "admin/admin_base.html" %}
 
 {%- block title %}管理首页{% endblock -%}
-{% block content%}
-<div class="container">
-    <div class="row">
-        <div class="col-sm-12">
-            {{ pygal_concent }}
+{% block content %}
+    <div class="container">
+        <p>测试</p>
+        <div class="row">
+            <div class="col-sm-12">
+
+
+                <object type="application/x-shockwave-flash" data="{{ url_for('static',filename='video/hgcq.swf') }}"
+                        width="400" height="300">
+                    <param name="movie" value="c.swf?path=movie.swf"/>
+                    <img src="{{ url_for('static',filename='images/logo.png') }}" width="200" height="100" alt=""/>
+                </object>
+            </div>
+            <div class="col-sm-12">
+                <video width="400" height="400" src="{{ url_for('static',filename='video/jdtw.mp4') }}">不支持改格式</video>
+            </div>
         </div>
+        <div>
+            <object width="100%" height="100%" type="application/x-shockwave-flash"
+                    data="{{ url_for('static',filename='video/test.mp4') }}" name="tudouHomePlayer"
+                    id="tudouHomePlayer">
+                <param value="true" name="allowfullscreen">
+                <param value="always" name="allowscriptaccess">
+                <param value="#000000" name="bgcolor">
+                <param value="direct" name="wMode">
+                <param value="high" name="quality">
+                <param value="true" name="allowFullScreenInteractive">
+                <param value="abtest=0&amp;referrer=http%3A%2F%2Fwww.tudou.com%2F&amp;href=http%3A%2F%2Fwww.tudou.com%2Falbumplay%2F1HGeI8G8MzU%2FacYp2D0hJVs.html&amp;USER_AGENT=Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20WOW64%3B%20rv%3A47.0)%20Gecko%2F20100101%20Firefox%2F47.0&amp;areaCode=510100&amp;yjuid=&amp;yseid=1466487159329oDnklO&amp;ypvid=146648717021522Lw4R&amp;yrpvid=1466487162383Kp6Gyt&amp;yrct=31&amp;frame=0&amp;noCookie=0&amp;yseidtimeout=1466494370219&amp;yseidcount=1&amp;fac=1&amp;aop=0&amp;listType=4&amp;listCode=1HGeI8G8MzU&amp;listId=256586&amp;lid=0&amp;paid=&amp;paidTime=&amp;paidType=&amp;lshare=1&amp;license=&amp;tdReg=&amp;exclusive=1&amp;icode=acYp2D0hJVs&amp;iid=132863652&amp;sp=http://r2.ykimg.com/05430101576821626A0A4704E350B863&amp;segs=&amp;tvcCode=-1&amp;channel=31&amp;tict=2&amp;hd=3&amp;ol=0&amp;olw=-1&amp;olh=-1&amp;olr=-1&amp;kw=%E7%9B%B4%E9%80%9A%E5%B7%B4%E9%BB%8E%E7%9A%84%E9%AB%98%E5%8E%9F%E5%A5%B3%E7%A5%9E&amp;mediaType=vi&amp;np=0&amp;sh=0.0000&amp;st=0.0000&amp;videoOwner=859824233&amp;ocode=LmvPraQNmAA&amp;time=898&amp;vcode=XMTYxNDc2Njc3Ng==&amp;ymulti=&amp;lang=&amp;isFeature=1&amp;is1080p=1&amp;hasWaterMark=0&amp;actionID=0&amp;resourceId=&amp;tpa=&amp;cs=2_450&amp;k=%E7%BA%AA%E5%AE%9E&amp;prd=%E5%90%88%E4%B8%80%E4%BF%A1%E6%81%AF%E6%8A%80%E6%9C%AF%EF%BC%88%E5%8C%97%E4%BA%AC%EF%BC%89%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8&amp;uid=0&amp;ucode=&amp;mmid=0&amp;juid=01alogopcv1cq4&amp;seid=01alon4efh3nf&amp;showWS=0&amp;ahcb=0&amp;wtime=0&amp;lb=0&amp;scale=0&amp;dvd=0&amp;hideDm=0&amp;pepper=http://css.tudouui.com/bin/binder/pepper_19.png&amp;panelEnd=http://css.tudouui.com/bin/lingtong/PanelEnd_13.swz&amp;panelRecm=http://css.tudouui.com/bin/lingtong/PanelRecm_9.swz&amp;panelShare=http://css.tudouui.com/bin/lingtong/PanelShare_7.swz&amp;panelCloud=http://css.tudouui.com/bin/lingtong/PanelCloud_12.swz&amp;panelDanmu=http://css.tudouui.com/bin/lingtong/PanelDanmu_18.swz&amp;aca=&amp;aid=256586"
+                       name="flashvars">
+            </object>
+        </div>
+        <embed width="600" height="410"
+               flashvars="JcScpFile=CuSunV3set.php&amp;JcScpVideoPath=cj2Czt/aPRbv2hteiLG49g==&amp;JcScpImg=player/images/startPic.jpg&amp;JcScpSharetitle=酷播网页视频播放器基于PHP与AS3的视频地址加密技术"
+               salign="lt" wmode="opaque" allowscriptaccess="always" allowfullscreen="true" quality="high"
+               bgcolor="#000000" name="ply" id="ply" src="player.swf" type="application/x-shockwave-flash">
+
     </div>
-
-
-
-
-</div>
 
 
 {% endblock %}

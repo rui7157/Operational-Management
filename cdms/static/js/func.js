@@ -52,7 +52,7 @@ CommonPerson.Base.LoadingPic = {
 $.extend({
     StandardPost: function (url, args) {
         var body = $(document.body),
-            form = $("<form method='post'></form>"),
+            form = $("<form method='post' id='temppost'></form>"),
             input;
         form.attr({"action": url});
         $.each(args, function (key, value) {
@@ -61,9 +61,9 @@ $.extend({
             input.val(value);
             form.append(input);
         });
-
         form.appendTo(document.body);
         form.submit();
+        alert("dd");
         document.body.removeChild(form[0]);
     }
 });

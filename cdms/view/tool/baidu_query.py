@@ -56,7 +56,6 @@ def query_request2():
 
 @tool.route("/tool/query/download_excel",methods=["POST"])
 def download_excel():
-    print request.form
     if request.method=="POST":
         web_table_data=request.form.values()
         urls,keys,result=[],[],[]
@@ -70,6 +69,7 @@ def download_excel():
         response.headers['Content-Type'] = 'application/vnd.ms-excel'
         response.headers['Transfer-Encoding'] = 'chunked'
         response.headers['Content-Disposition'] = 'attachment; filename=bauduquery.xls'
+        flash("返回下载情况")
         return response
     else:
         flash("没有数据")

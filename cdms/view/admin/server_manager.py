@@ -182,7 +182,6 @@ def delete_site():
 @adm.route("/search_site",methods=["POST"])
 def search_site():
     #搜索站点
-
     text=request.form.get("text",None)
     if text:
         sql="""SELECT  `id`,`ip`,`name`,`domain`,`icp` FROM site WHERE concat_ws(`name`,`domain`,`icp`,`ip`) LIKE '%{text}%' """.format(text=text)
