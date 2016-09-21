@@ -1,6 +1,5 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-# Created by bayonet on 16-3-15.
 
 import psutil
 import re, os
