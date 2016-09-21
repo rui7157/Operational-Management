@@ -43,7 +43,7 @@
 
 ![demo1](/cdms/static/images/demo1.png)
 ![demo2](/cdms/static/images/demo2.png)
-![demo3](/cdms/static/images/demo2.png)
+![demo3](/cdms/static/images/demo3.png)
 
 
 
