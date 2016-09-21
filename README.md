@@ -41,9 +41,9 @@
 
 ###预览
 
-![demo1](github.com/rui7157/Operational-Management/blob/master/cdms/static/images/demo1.png)
-![demo2](github.com/rui7157/Operational-Management/blob/master/cdms/static/images/demo2.png)
-![demo3](github.com/rui7157/Operational-Management/blob/master/cdms/static/images/demo2.png)
+![demo1](/blob/master/cdms/static/images/demo1.png)
+![demo2](/blob/master/cdms/static/images/demo2.png)
+![demo3](/blob/master/cdms/static/images/demo2.png)
 
 
 
